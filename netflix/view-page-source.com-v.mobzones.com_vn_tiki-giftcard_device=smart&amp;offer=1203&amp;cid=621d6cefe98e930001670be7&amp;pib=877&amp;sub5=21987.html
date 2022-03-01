@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="http://v.mobzones.com">
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta name="viewport" content=
+  "width=device-width,initial-scale=1">
+  <script src=
+  "https://d2b4jmuffp1l21.cloudfront.net/pacman/pacman-1.2.0.js"></script>
+  <script>
+    window.pacman = mkPacmanClient({
+        rockmanId: '1b482b15b1834b95bf090256a84cef35',
+        serverUrl: 'https://sg-pacman.analytickz.com/api/v2/mstore',
+        impressionNumber: 243259163
+    });
+  </script>
+  <script type="text/javascript">
+  // http://stackoverflow.com/a/9899701
+  (function(funcName, baseObj) {
+    // The public function name defaults to window.docReady
+    // but you can pass in your own object and own function name and those will be used
+    // if you want to put them in a different namespace
+    funcName = funcName || "docReady";
+    baseObj = baseObj || window;
+    var readyList = [];
+    var readyFired = false;
+    var readyEventHandlersInstalled = false;
+
+    // call this when the document is ready
+    // this function protects itself against being called more than once
+    function ready() {
+        if (!readyFired) {
+            // this must be set to true before we start calling callbacks
+            readyFired = true;
+            for (var i = 0; i < readyList.length; i++) {
+                // if a callback here happens to add new ready handlers,
+                // the docReady() function will see that it already fired
+                // and will schedule the callback to run right after
+                // this event loop finishes so all handlers will still execute
+                // in order and no new ones will be added to the readyList
+                // while we are processing the list
+                readyList[i].fn.call(window, readyList[i].ctx);
+            }
+            // allow any closures held by these functions to free
+            readyList = [];
+        }
+    }
+
+    function readyStateChange() {
+        if ( document.readyState === "complete" ) {
+            ready();
+        }
+    }
+
+    // This is the one public interface
+    // docReady(fn, context);
+    // the context argument is optional - if present, it will be passed
+    // as an argument to the callback
+    baseObj[funcName] = function(callback, context) {
+        // if ready has already fired, then just schedule the callback
+        // to fire asynchronously, but right away
+        if (readyFired) {
+            setTimeout(function() {callback(context);}, 1);
+            return;
+        } else {
+            // add the function and context to the list
+            readyList.push({fn: callback, ctx: context});
+        }
+        // if document already ready to go, schedule the ready function to run
+        if (document.readyState === "complete") {
+            setTimeout(ready, 1);
+        } else if (!readyEventHandlersInstalled) {
+            // otherwise if we don't have event handlers installed, install them
+            if (document.addEventListener) {
+                // first choice is DOMContentLoaded event
+                document.addEventListener("DOMContentLoaded", ready, false);
+                // backup is window load event
+                window.addEventListener("load", ready, false);
+            } else {
+                // must be IE
+                document.attachEvent("onreadystatechange", readyStateChange);
+                window.attachEvent("onload", ready);
+            }
+            readyEventHandlersInstalled = true;
+        }
+    }
+  })("docReady", window);
+
+  // Mock jquery to support syntax :
+  // 1) jQuery(document).ready(function() {...});
+  // 2) $(document).ready(function() {...});
+  // 3) $(function() {...});
+  var jQuery = function(baseObj) {
+    if (typeof baseObj === 'function') {
+        return docReady(baseObj);
+    }
+
+    return {
+        ready: function(baseObj) {
+            docReady(baseObj);
+        }
+    }
+  };
+  $ = jQuery;
+  </script>
+  <script type="text/javascript">
+    // Note, pacManData, merge_options and sendPacManData will be used by _js_validate.twig.
+    // That's the reason we can't locate them in anonymous function scope.
+
+    function sendPacManData(pacManData)
+    {
+        var url = "https://sg-pacman.analytickz.com/api/v1/store";
+        var xhr = createCORSRequest('POST', url);
+        if (!xhr) {
+            return;
+        }
+        xhr.onerror = function() {};
+        xhr.send(JSON.stringify(pacManData));
+    }
+
+    function createCORSRequest(method, url)
+    {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+            // XHR for Chrome/Firefox/Opera/Safari.
+            xhr.open(method, url, true);
+        } else if (typeof XDomainRequest != "undefined") {
+            // XDomainRequest for IE.
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+        } else {
+            // CORS not supported.
+            xhr = null;
+        }
+        return xhr;
+    }
+
+    // http://stackoverflow.com/a/171256/72437
+    // obj2 has higher priority.
+    function merge_options(obj1,obj2){
+        var obj3 = {};
+        for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
+        for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+        return obj3;
+    }
+
+    // https://www.w3schools.com/jsref/prop_win_innerheight.asp
+    function getInnerWidth()
+    {
+        return window.innerWidth
+        || document.documentElement.clientWidth
+        || document.body.clientWidth;
+    }
+
+    // https://www.w3schools.com/jsref/prop_win_innerheight.asp
+    function getInnerHeight()
+    {
+        return window.innerHeight
+        || document.documentElement.clientHeight
+        || document.body.clientHeight;
+    }
+
+    function isMobile()
+    {
+        // Handle exception thrown when cookie is not enabled.
+        try {
+            if (sessionStorage.desktop) // desktop storage
+                return false;
+            else if (localStorage.mobile) // mobile storage
+                return true;
+        } catch (err) {
+        }
+
+        var mobile = ['iphone','ipad','android','blackberry','nokia','opera mini','windows mobile','windows phone','iemobile'];
+        for (var i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
+
+        // nothing found.. assume desktop
+        return false;
+    }
+
+    var pacManData = {"event_type":"impression","impression_id":null,"page_name":null,"handle_name":"tiki-giftcard","user_id":"3cdc01b6c2084d8e89994bac06589137","session_number":1,"impression_number":1,"pacman_id":"3cdc01b6c2084d8e89994bac06589137-1-1","ip":"151.80.19.150","ip2":"151.80","ip3":"151.80.19","country_code":"vn","ad_name":"TIKI_GIFTCARD_VN","product_type":"mcb","scenario_name":"XNK - GAME9104 - XN1266","device_class":"smart","traffic_type":"REG","offer_id":1,"rockman_id":"1b482b15b1834b95bf090256a84cef35","landing_page_url":"http:\/\/v.mobzones.com\/vn\/tiki-giftcard?country=vn&handle=tiki-giftcard&offer=1&device=smart&%3Boffer=1203&%3Bcid=621d6cefe98e930001670be7&%3Bpib=877&%3Bsub5=21987","affiliate_id":"SAM","headers":{"connection":"close","accept-encoding":"identity","accept":"*\/*","host":"v.mobzones.com","user-agent":"mozilla\/5.0 (compatible; view page source\/1.1; +http:\/\/www.view-page-source.com\/)"},"msisdn":null,"timestamp":1646095610,"operator_code":null,"gateway":"ict, Iservice","query_string":{"offer":1,"device":"smart","amp;offer":"1203","amp;cid":"621d6cefe98e930001670be7","amp;pib":"877","amp;sub5":"21987"},"get_sub_method":"To be determined","sub_id":null,"pubid":null,"platform":"mcb","service_identifier1":"GAME9104","service_identifier2":"9104","service_identifier3":"GAME","pacid":null,"pabid":null,"connection_type":"Wifi","ip2l_operator_code":null,"binom_cid":null};
+
+    pacManData['inIframe']       = window.self !== window.top;
+    pacManData['clientDate']     = new Date;
+    pacManData['clientTime']     = (new Date).getTime();
+    pacManData['screenHeight']   = screen.height;
+    pacManData['screenWidth']    = screen.width;
+    pacManData['innerHeight']    = getInnerHeight();
+    pacManData['innerWidth']     = getInnerWidth();
+    pacManData['outerHeight']    = window.outerHeight;
+    pacManData['outerWidth']     = window.outerWidth;
+    pacManData['isMobile']       = isMobile();
+    pacManData['cookieEnabled']  = navigator.cookieEnabled;
+    pacManData['locationHref']   = window.location.href;
+
+  (function() {
+
+    var startTime = Date.now();
+    var countErrorEvent = [];
+
+    function ensureDurationIsValid(duration) {
+        // 2147483647 = 2^31 - 1
+        if (duration > 2147483647 || duration < 0) {
+            // Indicate duration is not valid.
+            duration = -1;
+        }
+        return duration;
+    }
+
+    // http://stackoverflow.com/q/3763080/72437
+    function addEvent(html_element, event_name, event_function)
+    {
+        if (html_element.attachEvent) {
+            html_element.attachEvent("on" + event_name, function() {event_function.call(html_element);});
+        } else if (html_element.addEventListener) {
+            html_element.addEventListener(event_name, event_function, false);
+        }
+    }
+
+    addEvent(document, 'DOMContentLoaded', function(event) {
+        // ???
+        pacManData['domReadyTime'] = Date.now() - startTime;
+    });
+
+    function getPerformance()
+    {
+        if (!!window.performance && !!window.performance.timing) {
+            var timing = window.performance.timing;
+
+            return {
+                domLoadTime    : ensureDurationIsValid(timing.loadEventEnd - timing.responseEnd), // affected by CDN
+                fetchTime      : ensureDurationIsValid(timing.responseEnd - timing.fetchStart), // affected by server
+                totalLoadTime  : ensureDurationIsValid(timing.loadEventEnd - timing.navigationStart), // total time
+                navigationTime : ensureDurationIsValid(timing.fetchStart - timing.navigationStart) // affected by network
+            }
+        }
+
+        return null
+    }
+  })();
+  </script>
+  <style>
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, font, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td {
+        border: 0;
+        font-family: inherit;
+        font-size: 100%;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline; }
+
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  main,
+  nav,
+  section {
+        display: block; }
+
+  ol, ul {
+        list-style: none; }
+
+  em, h1, h2, h3, h4, h5, h6 {
+        font-style: inherit;
+        font-weight: inherit;
+  }
+
+  /** Float Clearing **/
+
+  .clearfix:before,
+  .clearfix:after {
+  content: "";
+  display: table;
+  }
+
+  .clearfix:after {
+  clear: both;
+  }
+
+  .clearfix {
+  zoom: 1; /* ie 6/7 */
+  }
+
+  .footer strong { font-weight: bold;}
+  </style>
+  <style>
+  .operator-group {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #666;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  width:220px;
+  margin:10px auto;
+  }
+  .operator-group:before, .operator-group:after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 4px dashed;
+  border-color: #888 transparent;
+  pointer-events: none;
+  }
+  .operator-group:before {
+  border-bottom-style: solid;
+  border-top: none;
+  }
+  .operator-group:after {
+  margin-top: 7px;
+  border-top-style: solid;
+  border-bottom: none;
+  }
+
+  .operator-selection {
+  position: relative;
+  width: 130%;
+  margin: 0;
+  height:30px;
+  padding: 5px 10px;
+  font-size: 15px;
+  color: #333;
+  background: #f2f2f2;
+  background: rgba(0, 0, 0, 0) !important;
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  }
+
+  .operator-selection:focus {
+  z-index: 3;
+  width: 100%;
+  color: #394349;
+  outline: 2px solid #ccc;
+  outline-offset: -2px;
+  }
+
+  .operator-selection > option {
+  margin: 3px;
+  padding: 6px 8px;
+  text-shadow: none;
+  background: #f2f2f2;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+   appearance: none;
+  }
+
+  /*
+  */
+
+  /* ----------------- IE 8 customized css for height:auto --------------------*/
+
+  @media \0screen {
+  .imgIE8 { 
+        width: auto; /* for ie 8 */
+  }
+  }
+
+  /* ----------------- IMG 100% ------------------*/
+
+  .img100pct{width:100%;}
+
+  /* ----------------- OC2SMS Button remove underline ------------------*/
+
+  a{
+        text-decoration:none;
+        }
+
+
+
+
+
+
+
+
+
+        
+
+  /*#KW_OOREDOO{
+                background: url("/resource/shared/marketing_assets/operators/KW/ooredoo.png") #fff center center no-repeat;
+                width:80%;
+                min-width: 120px;
+                max-width: 125px;
+                height:85px;
+                border:none;
+                margin:10px 3px;
+                outline: none;
+                cursor: pointer;color:transparent;
+                color:rgba(255,255,255,0);
+                text-shadow: none;
+                border-radius: 7px;
+                display: inline-block;
+                box-shadow: 0px 2px 2px rgba(0,0,0,0.75);
+                animation:none;
+                -webkit-animation:none;
+        }
+        
+        #KW_VIVA{
+                background: url("/resource/shared/marketing_assets/operators/KW/viva.jpg") #fff center center no-repeat;
+                width:80%;
+                min-width: 120px;
+                max-width: 125px;
+                height:85px;
+                border:none;
+                margin:10px 3px;
+                outline: none;
+                cursor: pointer;color:transparent;
+                color:rgba(255,255,255,0);
+                text-shadow: none;
+                border-radius: 7px;
+                display: inline-block;
+                box-shadow: 0px 2px 2px rgba(0,0,0,0.75);
+                animation:none;
+                -webkit-animation:none;
+        }
+        
+        
+        
+        @media screen and (max-width: 320px){
+        #KW_OOREDOO,#KW_VIVA{min-width: 90px;}
+                
+        }*/
+
+        
+  </style>
+  <style>
+  #confirmation-legal-wrapper,#confirmation-incentivized-wrapper, .confirmation-op_confirm-wrapper{
+        position:fixed !important;
+        z-index:1000;
+        width:100%;
+        height: 100%;
+        text-align:center;
+        background:rgba(0,0,0,0.6);
+        top: 0;
+        }
+        
+  .bupper-popup-block{
+        display:table;
+        width:50%;
+        max-width: 460px;
+        margin:18% auto;
+        left: 0;
+        right: 0;
+        min-height:100px;
+        background-color:#eee;
+        border-radius:10px;
+        border:10px rgba(255,255,255,1) solid;
+        padding:20px;
+        position:absolute;
+        color:rgba(0,0,0,1);
+        }
+
+  .accept-confirmation,.decline-confirmation{
+        border-radius:5px;
+        border:none;
+        background-color:rgba(0,153,204,1) ;
+        color:rgba(255,255,255,1);
+        padding:5px; margin:3px;
+        }
+
+  .accept-confirmation:hover,.decline-confirmation:hover{
+        border-radius:5px;
+        border:none;
+        background-color:rgba(0,128,192,1);
+        color:rgba(255,255,255,1);
+        padding:5px;
+        }
+        
+  .msisdn-input, .msisdn-input:focus { 
+        text-align:center;
+  }
+
+  .transbtn{color:inherit; text-decoration:none;}
+        
+  @media screen and (max-width: 780px){
+  .bupper-popup-block{
+        margin:33% auto;
+        min-height:100px;left:20%;right:20%;position:absolute;top:25%;
+        background-color:#eee;
+        border-radius:10px;
+        /*padding:20px;*/
+        }
+  }
+
+  @media screen and (max-width: 480px){
+  .bupper-popup-block{
+        width:70%; margin:40% auto;
+        min-height:100px;left:5%;right:5%;position:absolute;top:10%;
+        background-color:#eee;
+        border-radius:10px;
+        /*padding:20px;*/
+        }
+  }
+
+
+
+
+
+
+  </style><!-- or <style>.bupper-popup-block{
+        max-width:280px; display:table; width:100%;
+        box-sizing:border-box;
+        margin:0 auto;
+        min-height:100px;
+        background-color:#eee;
+        border-radius:5px;
+        border:10px rgba(255,255,255,1) solid;
+        /*padding:20px;*/
+        color:rgba(0,0,0,1);
+        }
+
+.accept-confirmation,.decline-confirmation{
+        border-radius:5px;
+        border:none;
+        background-color:rgba(0,153,204,1) ;
+        color:rgba(255,255,255,1);
+        padding:5px;
+        }
+
+.accept-confirmation:hover,.decline-confirmation:hover{
+        border-radius:5px;
+        border:none;
+        background-color:rgba(0,128,192,1);
+        color:rgba(255,255,255,1);
+        padding:5px;
+        }
+
+</style> for feature phone //-->
+
+  <style>
+  /* ---------------------------- top hooks and bottom hooks layout styling ------------------------------ */
+  .footer,
+  .toplegal,
+  .hook-topLeft,
+  .hook-topCenter,
+  .hook-topRight,
+  .hook-bottomLeft,
+  .hook-bottomCenter,
+  .hook-bottomRight,
+  .hook-beforeSubmit,
+  .hook-afterSubmit,
+  .hook-beforeInput,
+  .hook-afterInput,
+  .component-msg{
+        font-size:11px;
+        font-family:Arial, Helvetica, sans-serif;
+        font-weight:normal;
+        }
+        
+  .footer a{
+        color:inherit;
+        }
+
+  .footer, .toplegal {text-align: justify; display:table; width:100%;} 
+
+  .toplegal p {margin: 0;}
+
+  .popup-bottom, .popup-top{display:table-row;}
+
+  .hook-confirmationBodyStart, hook-confirmationBodyEnd{padding:5px; text-align:center;}
+  .hook-confirmationBodyStart{margin-top:10px;}
+  .hook-confirmationBodyEnd{margin-bottom:10px;}
+
+  .hook-topLeft, .hook-topCenter, .hook-topRight{margin:0; top:0;}
+  .hook-confirmationTopLeft, .hook-confirmationTopCenter, .hook-confirmationTopRight{margin:0;}
+
+  .hook-topLeft, .hook-bottomLeft, .hook-confirmationTopLeft, .hook-confirmationBottomLeft{text-align:left;}
+  .hook-topCenter, .hook-bottomCenter{text-align:justify;}
+  .hook-topRight, .hook-bottomRight, .hook-confirmationTopRight, .hook-confirmationBottomRight{text-align:right;}
+  .hook-confirmationTopCenter, .hook-confirmationBottomCenter{text-align:center;}
+
+  .hook-bottomLeft, .hook-bottomCenter, .hook-bottomRight, .hook-topLeft, .hook-topCenter, .hook-topRight {display:table-cell; padding:5px; vertical-align: top;}
+  .hook-confirmationTopLeft, .hook-confirmationTopCenter, .hook-confirmationTopRight, .hook-confirmationBottomLeft, .hook-confirmationBottomCenter, .hook-confirmationBottomRight
+  {display:table-cell; padding:5px;}
+
+
+  /* ---------------------------- end top hooks and bottom hooks layout styling ------------------------------ */
+  </style>
+  <style>
+  html,
+  body {
+        color: black;
+        background: #23479A;
+        font-size: 14px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+  }
+
+  a {
+        color: inherit;
+        text-decoration: none;
+  }
+
+  .wrap {
+        max-width: 400px;
+        margin: auto;
+        padding: 0 10px;
+        clear: both;
+        margin-top: 20px;
+  }
+
+  .box {
+        background: white;
+        border: 1px solid #e0dfdf;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        position: relative;
+        box-sizing: border-box;
+        max-width: 350px;
+        width: 95%;
+        margin: auto;
+        padding: 18px 16px 16px 16px;
+  }
+
+  .pin.box::after {
+        content: '';
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        border-radius: 8px;
+        top: -13px;
+        right: 0;
+        left: 0;
+        z-index: 9;
+        margin: auto;
+        background-color: white;
+        transform: rotate(45deg);
+  }
+
+  .sub-title1{
+        font-size: 20px;
+        font-weight: bold;
+        margin: 70px auto 0;
+        color: white;
+  }
+
+  .main-title1{
+        font-size: 30px;
+        font-weight: bold;
+        margin: 4px auto;
+        color: yellow;
+  }
+
+  .creative1{
+        max-width: 700px;
+    height: 452px;
+    width: auto;
+        background-image: url("/resource/shared/tiki/tiki-giftcard-vn.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: auto;
+    background-position: center;
+    margin-top: -183px;
+        margin-bottom: -60px;
+  }
+
+
+  .creative2{
+        max-width: 380px;
+    height: 300px;
+    width: auto;
+        background-image: url("/resource/shared/mystery_prizes/prizes-2.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: auto;
+        background-position: center;
+        margin-top: -60px;
+        margin-bottom: -20px; 
+  }
+
+
+  .creative-pin {
+        height: 250px;
+        width: 280px;
+        background-image: url("/resource/shared/phoneprotector/phone-sms.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: auto;
+        background-position: center;
+        margin-bottom: -65px;
+
+  }
+
+  .cta-title {
+        font-size: 14px;
+        padding: 0 20px;
+        text-align: center;
+        font-weight: 600;
+  }
+
+  .wrapper {
+        margin: 0 auto;
+        position: relative;
+        /* max-width: 500px; */
+  }
+
+  .instructions {
+        margin: 20px auto 0;
+        max-width: 300px;
+        text-align: center;
+  }
+
+  .or {
+        font-size: 20px;
+        margin: 14px auto;
+        display: inline-block;
+  }
+
+  .mo-container {
+        color: black;
+  }
+
+  /** MSISDN AND PIN INPUTS START **/
+  .msisdn-input,
+  .pin-input {
+        border: 2px solid #7cbc0a;
+        background-color: #f0fae1;
+        border-radius: 4px;
+        font-size: 24px;
+        padding: 8px;
+
+        margin-bottom: 4px;
+        border-radius: 8px;
+  }
+
+  .msisdn-input {
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+  }
+
+  .pin-input {
+        width: 200px;
+        font-weight: bold;
+        padding-left: 3ch;
+        margin: 0 auto;
+        height: 50px;
+  }
+
+  .msisdn-input:focus,
+  .pin-input:focus {
+        border: 2px solid #B3C833;
+  }
+
+  /** input icons **/
+  .pin-input {
+        background:#f7f7f7 url("/resource/shared/common/icon-password-gray.png") 12px center no-repeat;
+  }
+
+  .pin-input:focus {
+        background:#f7f7f7 url("/resource/shared/common/icon-password-black.png") 12px center no-repeat;
+  }
+
+  /* START INPUT - country flag country code */
+  .msisdn-input {
+        max-width: 300px;
+        width: 100%;
+        height: 56px;
+        text-align: left !important;
+        direction: ltr;
+        box-sizing: border-box;
+        position: relative;
+        padding-left: 50px;
+  }
+
+  .msisdn-input,
+  .msisdn-input:focus {
+        text-align: left;
+  }
+
+  .msisdn-input-wrap {
+        position: relative;
+        display: block;
+        max-width: 300px;
+        margin: auto;
+  }
+
+  .msisdn-input-wrap::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        left: 15px;
+        bottom: 16px;
+        background-image: url("/resource/shared/flag/phone-black.svg");
+        background-repeat: no-repeat;
+        background-size: 30px;
+  }
+
+  .msisdn-input-wrap:before {
+        left: 21px;
+  }
+
+  .send {
+        font-size: 16px;
+    line-height: 2.2;
+  }
+
+  /** MSISDN AND PIN INPUTS END **/
+
+  /** CTA BTN STYLES START **/
+  .msisdn-submit-button,
+  .msisdn-submit-disable,
+  .pin-submit-button,
+  .pin-submit-disable,
+  .btn {
+        background-color: #cccccc;
+        background-image: none;
+        cursor: not-allowed;
+        color: #a5a5a5;
+        box-shadow: 0 1px 1.5px rgba(0, 0, 0, .15);
+        box-shadow: 0 1px 1.5px rgba(0, 0, 0, .25);
+        color: #fff;
+        font-size: 1.8em;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 300px;
+        height: 60px;
+        text-decoration: none;
+        text-align: center;
+        margin: 4px auto 12px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 400;
+  }
+
+  .pin-submit-button,
+  .msisdn-submit-button,
+  .btn,
+  .oc2sms-button {
+        background: rgb(255,199,0);
+        background: -moz-linear-gradient(180deg, rgba(255,199,0,1) 0%, rgba(255,147,0,1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(255,199,0,1) 0%, rgba(255,147,0,1) 100%);
+        background: linear-gradient(180deg, rgba(255,199,0,1) 0%, rgba(255,147,0,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffc700",endColorstr="#ff9300",GradientType=1);
+        color: #fff;
+        font-size: 1.8em;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 300px;
+        height: 60px;
+        text-decoration: none;
+        text-align: center;
+        margin: 4px auto 12px;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        font-weight: 400;
+  }
+
+  .oc2sms-button {
+        margin-bottom: 4px;
+  }
+
+  .msisdn-group,
+  .msisdn-submit-button,
+  #pinwrap {
+        position: relative;
+  }
+
+  /** CTA BTN STYLES ENDS **/
+
+  .errMsg {
+        color: red;
+        font-size: 12px;
+        /* padding: 5px 0 3px 0; */
+        display: block;
+  }
+
+  #component-msg-DISCLAIMER {
+        padding: 20px;
+    text-align: left;
+    max-width: 420px;
+    margin: auto;
+        color: white;
+  }
+
+  .valid:before {
+        display: none;
+  }
+
+  .keys {
+        font-size: 16px;
+  }
+
+  .keyword,
+  .shortcode {
+        font-size: 18px;
+        color: #000000;
+        font-weight: 700;
+  }
+
+  .spacing {
+        margin-bottom: 20px;
+  }
+
+  .component-msg a {
+        position: relative;
+        z-index: 10;
+        color: #0070ff;
+        margin: 0 auto 40px;
+        display: block;
+  }
+
+  #component-msg-MSISDN_LABEL {
+        margin: 20px auto 10px auto;
+        line-height: 1.9em;
+
+  }
+
+  .hook-beforeInput {
+        margin-top: 20px;
+  }
+
+  #component-msg-PINLABEL {
+        max-width: 300px;
+        margin: auto;
+  }
+
+  /* hide MO details for indonasia only because it is too long */
+
+        {
+        % if bupper_config.getCountry()=='id'%
+  }
+
+  .oc2sms-button {
+        position: relative;
+        text-transform: uppercase;
+        font-weight: bold;
+        box-shadow: none;
+        border: 0;
+        border-radius: 90px;
+        color: #000;
+        position: relative;
+        background-repeat: no-repeat;
+        /* background-image: #f4f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5), to(#dfdddd)); */
+        /* background-size: 100%; */
+  }
+
+  .oc2sms-button.telkomsel {
+        /* background: #FB4347;
+        color: #fff;  */
+
+        position: relative;
+        background-repeat: no-repeat;
+
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+        /* background-color:  */
+
+        background: url(/resource/shared/operator_logos/id/telkomsel1.png) no-repeat 20px 3px, linear-gradient(to bottom, #f4f5f5, #dfdddd);
+
+        background-repeat: no-repeat;
+  }
+
+
+
+  .oc2sms-button.xl {
+        /* background: #5776ff;
+        color: #fff; */
+        background-size: 40px;
+        background-position: 20px 5px;
+        background: url(/resource/shared/operator_logos/id/xl.png) no-repeat 20px 5px, linear-gradient(to bottom, #f4f5f5, #dfdddd);
+        background-repeat: no-repeat;
+
+  }
+
+
+  .oc2sms-button.isat {
+        background: #fff558;
+        color: #000;
+        background-size: 55px;
+        background-position: 20px 5px;
+        background: url(/resource/shared/operator_logos/id/isat.png) no-repeat 20px 10px, linear-gradient(to bottom, #f4f5f5, #dfdddd);
+        background-repeat: no-repeat;
+
+  }
+
+  .oc2sms-button.hutch {
+        background: #e91680;
+        color: #000;
+        background-size: 55px;
+        background-position: 20px 5px;
+        background: url(/resource/shared/operator_logos/id/hutch.png) no-repeat 20px 10px, linear-gradient(to bottom, #f4f5f5, #dfdddd);
+        background-repeat: no-repeat;
+
+  }
+
+  .oc2sms-button {
+        /* background-image: none !important; */
+        white-space: normal;
+        word-wrap: break-word;
+        padding-left: 90px;
+        text-align: left !important;
+  }
+
+
+        {
+        % endif %
+  }
+
+  .legal-checkbox, .incentivized-checkbox {
+        color: black;
+  }
+
+  .top-bar {
+        background-color: #00AE8E;
+    padding: 10px;
+    color: #4FE5C9;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .main-title {
+        font-size: 23px;
+    font-weight: bold;
+    width: 100%;
+    margin: 26px auto;
+    max-width: 400px;
+  }
+
+  .label-text {
+        color: black;
+        font-size: 18px;
+        margin: 22px auto 10px;
+        font-weight: bold;
+  }
+
+  .hook-topCenter, .hook-bottomCenter {
+        text-align: center;
+        padding: 0;
+  }
+
+  a.box {
+        display: block;
+  }
+  </style>
+  <script type="text/javascript">
+  document.createElement("header");
+        document.createElement("footer");
+        document.createElement("section");
+        document.createElement("aside");
+        document.createElement("main");
+        document.createElement("nav");
+  </script>
+  <title>Tiki Gift Card</title>
+  <link rel="shortcut icon" href=
+  "/resource/shared/tiki/favicon.png">
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NBRPX3L');
+  </script>
+</head>
+<body>
+  <main class="wrapper">
+    <form id="mainForm" action="/vn/tiki-giftcard" name=
+    "msisdn-form">
+      <input type='hidden' name='country' value='vn'> <input type=
+      'hidden' name='handle' value='tiki-giftcard'> <input type=
+      'hidden' name='offer' value='1'> <input type='hidden' name=
+      'device' value='smart'> <input type='hidden' name='amp;offer'
+      value='1203'> <input type='hidden' name='amp;cid' value=
+      '621d6cefe98e930001670be7'> <input type='hidden' name=
+      'amp;pib' value='877'> <input type='hidden' name='amp;sub5'
+      value='21987'> <input type='hidden' name='_extracted' value=
+      '1b482b15b1834b95bf090256a84cef35'> <input type='hidden' id=
+      'gaclientid' name='gaclientid' value=''>
+      <aside class="toplegal"></aside>
+      <header class="sub-title1">
+        May mắn nhân đôi
+      </header>
+      <div class="main-title1">
+        Nhanh tay trúng giải
+      </div>
+      <div class="creative1"></div>
+      <script type="text/javascript">
+      var maxNum = [11];
+      var minNum = [10];
+      var pinMin = 4;
+      var js_validate = true;
+      var acceptedNumericInputs = [
+        // latin
+        '0', '1', '2', '3', '4', '5', '6', '7', '8','9',
+        // arabic
+        '٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩',
+        // some more arabic
+        '۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹',
+      ];
+      $(document).ready(function () {
+        $('#mainForm').submit(checkValidity);
+
+        // restrict phone input
+        $('.numeric-field').keypress(function(key) {
+            if (key.charCode == 13) { // enter key
+                return true;
+            }
+
+            return acceptedNumericInputs.indexOf(key.key) > -1;
+        });
+
+        // restrict alphanumeric pin input
+        $('.alphanumeric-field').keypress(function(key) {
+            if (key.charCode == 13) { // enter key
+                return true;
+            }
+            var pattern = new RegExp("[a-zA-Z0-9]");
+            return pattern.test(key.key);
+        });
+
+        $('.numeric-field,.alphanumeric-field').each(function() {
+            var element = this;
+            var jqElement = $(element);
+
+            focusInput(jqElement);
+            checkInputCompleted(jqElement);
+
+            var previousValue = element.value;
+            setInterval(function () {
+                if (element.value != previousValue) {
+                    previousValue = element.value;
+                    checkInputCompleted(jqElement);
+                }
+            }, 50);
+        });
+
+      });
+
+      function focusInput(input)
+      {
+        var id = input.attr('id');
+        var index = Number(id.substr(id.indexOf('_')+1));
+        var type = id.search('msisdn') != -1 ? 'msisdn' :'pin';
+
+        input.focus(function() {
+            setTimeout((function(el) {
+                var strLength = el.value.length;
+                return function() {
+                    if(el.setSelectionRange !== undefined) {
+                        el.setSelectionRange(strLength, strLength);
+                    } else {
+                        $(el).val(el.value);
+                    }
+                }}(this)), 5);
+        });
+
+        if (type == 'msisdn') {
+            if (index == 0){
+                $('#'+type+'_'+index).focus();
+            }
+        }else{
+            input.focus();
+        }
+      }
+
+      function checkInputCompleted(input)
+      {
+        var id = input.attr('id');
+        var index = Number(id.substr(id.indexOf('_')+1));
+        var type = id.search('msisdn') != -1 ? 'msisdn' :'pin';
+        var min = 0;
+        if (type == 'msisdn') {
+            min = minNum[index];
+        }else{
+            min = pinMin;
+        }
+        if (input.val().length >= min){
+            input.attr('finish','true');
+        }else{
+            input.removeAttr("finish");
+        }
+        checkAllInputCompleted(type);
+      }
+      function checkAllInputCompleted(type)
+      {
+        if (type == 'msisdn'){
+            for (var i=0;i<minNum.length;i++){
+                if ($('#'+type+'_'+i).attr('finish') != 'true'){
+                    disableSubmit(type);
+                    return;
+                }
+            }
+        }else{
+            if ($('#'+type).attr('finish') != 'true'){
+                disableSubmit(type);
+                return;
+            }
+        }
+        enableSubmit(type);
+      }
+      function disableSubmit(buttonType)
+      {
+        $('#'+buttonType+'-submit-button')
+         .attr("disabled", "disabled")
+         .removeClass(buttonType+'-submit-button')
+         .addClass(buttonType+'-submit-disable');
+      }
+
+      function enableSubmit(buttonType)
+      {
+        $('#'+buttonType+'-submit-button')
+         .removeAttr("disabled", "disabled")
+         .addClass(buttonType+'-submit-button')
+         .removeClass(buttonType+'-submit-disable');
+      }
+
+      function checkMsisdnValid (e) {
+        var operatorsPrefixes = {
+                                                                'VN_MOBIPHONE':['090','093','070','079','077','076','078','089','0090','0093','0070','0079','0077','0076','0078','0089']
+                                                        ,'VN_VINAPHONE':['091','094','083','085','081','082','084','088','0091','0094','0085','0083','0084','0082','0081','0088']
+                                                        ,'VN_VIETNAM_MOBILE':['092','058','056','0092','0058','0056','052','0052']
+                                                        ,'VN_VIETTEL':['096','097','098','039','032','033','034','035','036','037','038','0098','0097','0096','0036','0039','0032','0033','0037','0034','0035','0038','086','0086']
+                                                       }
+        var prefixes = ['096','097','098','039','032','033','034','035','036','037','038','0098','0097','0096','0036','0039','0032','0033','0037','0034','0035','0038','086','0086','092','058','056','0092','0058','0056','052','0052','091','094','083','085','081','082','084','088','0091','0094','0085','0083','0084','0082','0081','0088','090','093','070','079','077','076','078','089','0090','0093','0070','0079','0077','0076','0078','0089','0162','0163','0164','0165','0166','0167','0168','0169','0188','0186','0123','0124','0125','0127','0129','0120','0121','0122','0126','0128','099','0199'];
+        var portable = false;
+        var errType = 0; //0 = no error, 1 = not a number, 2 = prefix not mismatch, 3 = operator mismatch, 4 = too less number, 5 = too many number,
+        var errMsg = {"OPERATOR_MISMATCH":"OPERATOR_MISMATCH","NOT_VALID_MSISDN":"NOT_VALID_MSISDN","OPERATOR_NOT_SELECTED":"OPERATOR_NOT_SELECTED"};
+
+        if ($("#operator").val() == "-none-"){
+            errType = 6;
+        }
+        emptyErrorMsg()
+        $("input.msisdn").each(function() {
+            var msisdn = getLatinDigits($(this).val());
+            // Force update msisdn to digits due to few functions
+            // takes value directly from #msisdn_0
+            $(this).val(msisdn);
+
+            var index = Number($(this).attr('id').substr(7));
+            var reg = /^\d+$/;
+            var result = reg.test(msisdn);
+            if (!result && errType == 0) {
+                errType = 1;
+            } else if (msisdn.length <  minNum[index] && errType == 0){
+                errType = 4;
+            } else if (msisdn.length > maxNum[index] && errType == 0) {
+                errType = 5;
+            } else if ($(this).attr('id') == "msisdn_0"){
+                var prefixesMatched = false;
+                if (portable){
+                    if (prefixes.length == 0){
+                        prefixesMatched = true;
+                    }else{
+                        for (var i=0; i<prefixes.length; i++){
+                            if (prefixes[i] != "" && prefixes[i] != null){
+                                if(msisdn.substr(0,prefixes[i].length) == prefixes[i]){
+                                    prefixesMatched = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!prefixesMatched && errType == 0){
+                        errType = 2;
+                    }
+                }else{
+                    if ($("#operator").val() == undefined || $("#operator").val() == null){
+                        prefixesMatched = true;
+                    }else{
+                        for (var fqn in operatorsPrefixes){
+                            if ($("#operator").val() == fqn){
+                                for (var i=0; i<operatorsPrefixes[fqn].length; i++){
+                                    if(msisdn.substr(0,operatorsPrefixes[fqn][i].length) == operatorsPrefixes[fqn][i]){
+                                        prefixesMatched = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!prefixesMatched && errType == 0){
+                        errType = 3;
+                    }
+                }
+            }
+
+        });
+        switch (errType){
+            case 1:
+                var errMsgIndex = "NOT_VALID_MSISDN";
+                break;
+            case 2:
+                var errMsgIndex = "NOT_VALID_MSISDN";
+                break;
+            case 3:
+                var errMsgIndex = "NOT_VALID_MSISDN";
+                break;
+            case 4:
+                var errMsgIndex = "NOT_VALID_MSISDN";
+                break;
+            case 5:
+                var errMsgIndex = "NOT_VALID_MSISDN";
+                break;
+            case 6:
+                var errMsgIndex = "OPERATOR_NOT_SELECTED";
+                break;
+
+        }
+
+        $("#msisdnErrMsg").append(errMsg[errMsgIndex]);
+
+        if (errType > 0) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
+        }
+
+        disableSubmit('msisdn');
+
+        return true;
+      }
+
+      function checkPinValid (e) {
+        var errTypePin = 0; //0 = no error, 1 = not a pin, 2 = too less number, 3 = too many number,
+        var errMsgPin = {"MISMATCH_PIN":"MISMATCH_PIN","NOT_VALID_PIN":"NOT_VALID_PIN"};
+        var shouldAllowAlphanumericPin = 0;
+        var maxNum = 6;
+        var minNum = 4;
+
+        emptyErrorMsg();
+
+        $("#pin").each(function() {
+
+            var pin = getLatinDigits($(this).val());
+            $(this).val(pin);
+            var index = Number($(this).attr('id').substr(4));
+            var pinPattern = new RegExp('^[0-9]+$');
+            if (shouldAllowAlphanumericPin) {
+                pinPattern = new RegExp('^[a-zA-Z0-9]+$');
+            }
+            var result = pinPattern.test(pin);
+
+            if (!result && errTypePin == 0) {
+                errTypePin = 1;
+            } else if (pin.length <  minNum && errTypePin == 0){
+                errTypePin = 2;
+            } else if (pin.length > maxNum && errTypePin == 0) {
+                errTypePin = 3;
+            }
+        });
+        switch (errTypePin){
+            case 1:
+            case 2:
+            case 3:
+                var errMsgIndexPin = "NOT_VALID_PIN";
+                break;
+        }
+        $("#pinErrMsg").append(errMsgPin[errMsgIndexPin]);
+
+        if (errTypePin > 0) {
+            e.preventDefault();
+            return false;
+        }
+
+        disableSubmit('pin');
+      }
+
+      function checkValidity(e){
+
+        if ($("#pin").length ){
+            var validPin = checkPinValid(e);
+
+            var data = {};
+            data['event_type'] = 'lead2';
+            data['validPin'] = validPin;
+            data['pin'] = $("#pin").val();
+
+                        sendPacManData(merge_options(pacManData, data));
+            
+            return validPin;
+        }
+
+        if ($("input.msisdn").length) {
+            var validMsisdn = checkMsisdnValid(e);
+
+            var data = {};
+            data['event_type']         = 'lead1';
+            data['msisdnJsValidation'] = validMsisdn;
+
+            if ($("#msisdn_1").length) {
+                data['msisdn'] = $("#msisdn_0").val() + $("#msisdn_1").val();
+            } else {
+                data['msisdn'] = $("#msisdn_0").val();
+            }
+
+            
+            sendPacManData(merge_options(pacManData, data));
+            
+
+            return validMsisdn;
+        }
+        return true;
+      }
+
+      function emptyErrorMsg() {
+        $(".errMsg").empty();
+      }
+
+      function getLatinDigits (input) {
+        return input.replace(/([٠١٢٣٤٥٦٧٨٩])|([۰۱۲۳۴۵۶۷۸۹])/g, function(m, $1, $2) {
+            return m.charCodeAt(0) - ($1 ? 1632 : 1776);
+        });
+      }
+      </script> 
+      <script src="/resource/shared/js/msisdn.js"></script>
+      <div class="wrap">
+        <div class="box">
+          <div class="label-text">
+            Nhập số điện thoại liên lạc
+          </div>
+          <script type="text/javascript">
+
+          function updateOperatorSelection(current, previous, isPrefix) {
+            var value = null;
+            var preValue = null;
+
+            if (isPrefix) {
+                var prefixsMap = {};
+
+                                prefixsMap['VN_MOBIPHONE'] = ["090","093","070","079","077","076","078","089","0090","0093","0070","0079","0077","0076","0078","0089"];
+                                prefixsMap['VN_VINAPHONE'] = ["091","094","083","085","081","082","084","088","0091","0094","0085","0083","0084","0082","0081","0088"];
+                                prefixsMap['VN_VIETNAM_MOBILE'] = ["092","058","056","0092","0058","0056","052","0052"];
+                                prefixsMap['VN_VIETTEL'] = ["096","097","098","039","032","033","034","035","036","037","038","0098","0097","0096","0036","0039","0032","0033","0037","0034","0035","0038","086","0086"];
+                
+                for (var operator in prefixsMap) {
+                    var prefixs = prefixsMap[operator];
+
+                    if (value == null) {
+                        if (prefixs.indexOf(current) > -1) {
+                            value = operator;
+                        }
+                    }
+
+                    if (preValue == null) {
+                        if (prefixs.indexOf(previous) > -1) {
+                            preValue = operator;
+                        }
+                    }
+
+                    if (value != null && preValue != null) {
+                        break;
+                    }
+                }
+            } else {
+                value = current;
+                preValue = previous;
+            }
+
+            var prevSelector = "span[criteria*='" + preValue + "']";
+            var selector = "span[criteria*='" + value + "']";
+
+            $(prevSelector).hide();
+            $(selector).show();
+
+            if (value == '-none-') {
+                $("span[data-criteria]").each(function (index) {
+                    $(this).show();
+                })
+            } else {
+                $("span[data-criteria]").each(function (index) {
+                    $(this).hide();
+                });
+
+                var v = '{"operator":["' + value + '"]}';
+                $("span[data-criteria='" + v + "']").show();
+            }
+
+            var operatorsWithConfirmation = [];
+
+            if (operatorsWithConfirmation.hasOwnProperty(value)) {
+                $('#op_confirm-checkbox').prop('checked', false);
+                if (operatorsWithConfirmation[value] == 'displayWithYesButtonOnly') {
+                    $('#accept-op_confirm-checkbox').show();
+                    $('#decline-op_confirm-checkbox').hide();
+                } else if (operatorsWithConfirmation[value] == 'displayWithNoButtonOnly') {
+                    $('#accept-op_confirm-checkbox').hide();
+                    $('#decline-op_confirm-checkbox').show();
+                } else {
+                    $('#accept-op_confirm-checkbox').show();
+                    $('#decline-op_confirm-checkbox').show();
+                }
+            } else {
+                $('#op_confirm-checkbox').prop('checked', true);
+            }
+
+            // External page handling.
+            $('a.component-link').attr('href', function (_idx, oldHref) {
+                if (value == '-none-') {
+                    return oldHref.replace(/operator=[^&]*/, 'operator=');
+                } else {
+                    return oldHref.replace(/operator=[^&]*/, 'operator=' + value);
+                }
+            });
+          }
+          </script> <!-- textfield -->
+          <div class="hook-block hook-beforeInput">
+            <span class="msisdnErrMsg errMsg" id=
+            "msisdnErrMsg"></span> <span class=
+            "operatorErrMsg errMsg" id="operatorErrMsg"></span>
+            <span style="display: none;" id=
+            "error_msg_msisdn_not_submitted">MSISDN_NOT_SUBMITTED</span>
+          </div>
+          <div class="msisdn-group">
+            <input type="hidden" name="msisdnSubmitted" value="Y">
+            <span class=
+            "msisdn msisdn-input-wrap msisdn-input-wrap-0"><input class="numeric-field msisdn msisdn-input msisdn-input-0"
+            type="tel" maxlength="11" id="msisdn_0" name=
+            "msisdn[0]" value="0" size="11" tabindex="1" autofocus=
+            ""></span>
+          </div><!-- button -->
+          <div class="hook-block hook-beforeSubmit">
+            <input type="hidden" name="legalCheckbox" value="Y">
+            <input type="hidden" name="incentivizedCheckbox" value=
+            "Y">
+          </div><button type="submit" id="msisdn-submit-button"
+          class="submit-button msisdn-submit-button" value=
+          "proceed">Tiếp tục</button>
+        </div>
+      </div><!--end of full-wrap-->
+      <div class="footer">
+        <div class="hook-block hook-bottomCenter">
+          <div class="component-msg" id="component-msg-DISCLAIMER">
+            <div>
+               
+            </div>
+            <div>
+               
+            </div>
+            <div>
+               
+            </div>
+            <div>
+               
+            </div>
+            <div>
+               
+            </div>
+            <div style="text-align: justify;">
+              Ngay sau khi gửi tin nhắn yêu cầu, quý khách sẽ đăng
+              ký thành công gói ngày dịch vụ giáo dục kỹ năng sống
+              cho trẻ em (đối với mạng Mobifone), truy cập kho
+              ứng dụng Android cực hot (đối với mạng Vinaphone và
+              Viettel) và có cơ hội trúng thưởng thẻ quà
+              tặng trị giá 1 triệu đồng của Tiki, Lazada,.....
+              Người may mắn là người thứ 50.000; 100.000;
+              150.000... của mạng đăng ký. Giải thưởng được trao là
+              thẻ quà tặng trị giá 1 triệu đồng của Tiki hoặc giá
+              trị tương đương. Người may mắn sẽ được nhận giải
+              thưởng trong vòng 02 tháng tiếp theo kể từ ngày thông
+              báo. Chúng tôi sẽ liên lạc với người may mắn theo số
+              điện thoại đã đăng ký trong vòng 03 ngày liên tục
+              (trong giờ làm việc). Người may mắn tiếp theo sẽ được
+              lựa chọn nếu không liên lạc được với người đầu tiên.
+              Giải thưởng sẽ được sử dụng để trao cho vòng chơi
+              tiếp theo nếu chúng tôi không liên lạc được với 03
+              khách hàng liên tiếp. Đối với mạng Mobifone,
+              Vinaphone, Viettel, đây là gói thuê bao theo ngày
+              (mức phí 5.000vnd/ 1 ngày đối với mạng Mobifone và
+              3.000vnd/ 1 ngày đối với mạng Để dừng thuê bao, gửi
+              <span style="font-size:24px;"><strong>HUY
+              KNS</strong></span> đến <span style=
+              "font-size:24px;"><strong>9285</strong></span>
+              (Mobifone), <span style="font-size:24px;"><strong>HUY
+              UD</strong></span> đến <span style=
+              "font-size:24px;"><strong>1266</strong></span>
+              (Viettel), gửi <span style=
+              "font-size:24px;"><strong>HUY GAME</strong></span>
+              đến <span style=
+              "font-size:24px;"><strong>9104</strong></span>
+              (Vinaphone). ĐTHT: 0943110634 (Vinaphone), 1800969654
+              (Viettel), 0936388832 (Mobifone).
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="op_confirm-checkbox op_confirm-checkbox-wrap">
+        <input type="hidden" name="op_confirmCheckbox" value="N">
+        <input type="checkbox" id="op_confirm-checkbox" class=
+        "op_confirm-checkbox" name="op_confirmCheckbox" value="Y"
+        style="display: none;">
+        <div id="confirmation-op_confirm-wrapper" class=
+        "confirmation-op_confirm-wrapper bupper-popup-div" style=
+        "display: none; position: absolute; left: 0; top: 0;">
+          <div class="bupper-popup-block">
+            <div class="hook-block hook-confirmationBodyStart">
+              <div class="confirmation-text" id=
+              "confirmation-text-op_confirm">
+                OP_CONFIRM_PAGE_TEXT
+              </div>
+            </div>
+            <div class="hook-block hook-confirmationBodyEnd"></div>
+          </div>
+        </div>
+        <script type="text/javascript">
+        jQuery(document).ready(function() {
+        var mcb_pop_up = "";
+        $('#confirmation-op_confirm-wrapper .accept-confirmation').on('click', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            $('#op_confirm-checkbox').prop('checked', true);
+            $('#confirmation-op_confirm-wrapper').hide();
+
+            $('form').submit();
+        });
+
+        $('#confirmation-op_confirm-wrapper .decline-confirmation').on('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (typeof(js_validate) !== 'undefined') {
+                enableSubmit('msisdn');
+            }
+
+            $('#confirmation-op_confirm-wrapper').hide();
+            $('#op_confirm-checkbox').prop('checked', false);
+        });
+
+        var validate_confirmation_op_confirm_checkbox = function (event) {
+            if (!$('select#operator').length && mcb_pop_up != "1") {
+                //this code added temporary
+                var accept = $('#accept-op_confirm-checkbox').val();
+                if (!accept) {
+                    return true;
+               }
+            }
+
+            var checkbox = $('#op_confirm-checkbox');
+            if (!checkbox.prop('checked')) {
+                $('#confirmation-op_confirm-wrapper').show();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                return false;
+            }
+            return true;
+        };
+
+        $('form').on('submit', validate_confirmation_op_confirm_checkbox);
+        });
+        </script>
+      </div>
+    </form><img width="1px" height="1px" src=
+    "https://sg-pacman.analytickz.com/api/v2/mstore?r=1b482b15b1834b95bf090256a84cef35&m=243259163&b=0&d[0][t]=image">
+    <script>
+    var _initialJqueryTime = new Date();
+    </script>
+    <script src=
+    "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+    var _finalJqueryTime = new Date();var _jqueryTiming = (_finalJqueryTime.getTime() - _initialJqueryTime.getTime());
+    </script>
+    <style>
+
+    #spin {
+      margin: 0 auto;
+      width: 10%;
+    }
+
+    .progress circle {
+      stroke: black;
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 0, 0, 50, 214;
+      stroke-dashoffset: 0;
+      -webkit-animation: spin 4s infinite linear;
+      animation: spin 0.5s infinite linear;
+      fill: none;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    @-webkit-keyframes spin {
+      50% {
+          stroke: grey;
+      }
+      100% {
+          stroke-dashoffset: -264;
+      }
+    }
+
+    @keyframes spin {
+      50% {
+          stroke: grey;
+      }
+      100% {
+          stroke-dashoffset: -264;
+      }
+    }
+    </style>
+    <script>
+    var callLimit = 5;
+    var currentCallCount = 0;
+    function unbindSubmit()
+    {
+    $("#mainForm").unbind('submit', function(e){e.preventDefault()})
+    $('#msisdn-submit-button').removeAttr('disabled')
+    }
+
+    function getPageToAppend(action, step)
+    {
+    if (action == 'pin' && step == 'capturePin') {
+      return 'pin';
+    }
+    if (action == 'notAvailable' && step == 'notAvailablePage') {
+      return 'error';
+    }
+    return 'mo_tq';
+    }
+
+    $(document).ready(function () {
+    $('#mainForm').on('submit', function (event) {
+      currentCallCount++;
+      event.preventDefault();
+      if (currentCallCount > callLimit) {
+        return false;
+      }
+      var url = $(this).attr('action');
+      var formData = $(this).serializeArray();
+      var submitBtn = $('#msisdn-submit-button');
+      var defaultBtnText = submitBtn.text();
+      // This will tell ads that this is a Ajax request
+      formData.push({
+        'name': 'isAjax',
+        'value': 1
+      });
+
+      var redirectUrl = window.location.origin + window.location.pathname + '?' + $(this).serialize() + '&page=';
+      var loadingBtnHtml = "<div id='spin'><svg class='progress' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' /><\/svg><\/div>";
+      var loadingText = "PROCESSING";
+
+      // If in bupper handle, we add component LOADING_BUTTON
+      // we will prioritize the handle component, if they
+      // don't set it, we will use default spinning
+      // loader svg. PROCESSING is default text for
+      // LOADING_BUTTON component.
+      if (loadingText === 'PROCESSING') {
+        submitBtn.html(loadingBtnHtml);
+      } else {
+        submitBtn.text(loadingText);
+      }
+
+      $.get(url, formData)
+        .done(function (data) {
+          var isStatusOk = data.status || false;
+          var isOptimizeMo = data.isOptimizeMo || false;
+          var action = data.action || false;
+          var step = data.step || false;
+          var page = getPageToAppend(action, step);
+          var isFlowAvailable = action !== 'notAvailable';
+          var redirect = function() { window.location.replace(redirectUrl + page); }
+
+          if (isStatusOk) {
+            if (isOptimizeMo && isFlowAvailable) {
+              if (navigator.userAgent.match(/(ipad|iphone|ipod)/ig)) {
+                data.smsBody = data.smsBody.replace(/sms:(\+?([0-9]*))?\?/, 'sms:$1&')
+              }
+              window.location.href = data.smsBody
+            } else {
+              redirect();
+            }
+            setTimeout(redirect, 2000);
+          } else if (data.error !== false) {
+            setTimeout(unbindSubmit(), 500)
+            $('#msisdnErrMsg').html(data.error);
+          } else {
+            setTimeout(unbindSubmit(), 500)
+            $('#msisdnErrMsg').text('SYSTEM_FAILURE');
+          }
+        })
+        .fail(function (e) {
+          setTimeout(unbindSubmit(), 500)
+          console.log(e);
+          $('#msisdnErrMsg').text('SYSTEM_FAILURE');
+        })
+        .always(function () {
+          submitBtn.text(defaultBtnText);
+        });
+    });
+    });
+    </script>
+    <div style="display: none">
+      <div class="mainTitle">
+        MAIN_TITLE
+      </div>
+      <div class="introText">
+        INTRO_TEXT
+      </div>
+      <div class="orText">
+        Hoặc
+      </div>
+      <div class="toText">
+        đến
+      </div>
+      <div class="sendText">
+        SEND_TEXT
+      </div>
+      <div class="smsButton">
+        SMSBUTTON
+      </div>
+      <div class="moTitle">
+        Bước cuối cùng
+      </div>
+      <div class="virusTitle">
+        VIRUS_TITLE
+      </div>
+      <div class="mobileTitle">
+        MOBILE_TITLE
+      </div>
+      <div class="pinTitle">
+        PINTITLE
+      </div>
+      <div class="cta-mo">
+        Nhấn vào đây
+      </div>
+      <div class="send">
+        Gửi
+      </div>
+      <div class="to">
+        đến
+      </div>
+      <div class="or">
+        Hoặc
+      </div>
+    </div>
+    <script>
+
+    var introText = $('.introText').text();
+    var mainTitle = $('.mainTitle').text();
+    var orText = $('.orText').text();
+    var toText = $('.toText').text();
+    var sendText = $('.sendText').text();
+    var smsButton = $('.smsButton').text();
+    var moTitle = $('.moTitle').text();
+    var virusTitle = $('.virusTitle').text();
+    var mobileTitle = $(".mobileTitle").text();
+    var pinTitle = $(".pinTitle").text();
+    var ctaMO = $(".cta-mo").text();
+    var sendText = $(".send").text();
+    var toText = $(".to").text();
+    var orText = $(".or").text();
+
+
+
+    $("#introText").text(introText);
+    $("#mainTitle").text(mainTitle);
+    $("#toText").text(toText);
+    $("#orText").text(orText);
+    $("#sendText").text(sendText);
+    $("#smsbutton").text(smsButton);
+    $("#moTitle").text(moTitle);
+    $("#virusTitle").text(virusTitle);
+    $("#pinTitle").text(pinTitle);
+    $(".cta-mo").text(ctaMO);
+    $(".send").text(sendText);
+    $(".to").text(toText);
+    $(".or").text(orText);
+
+    </script>
+  </main>
+</body>
+</html>

