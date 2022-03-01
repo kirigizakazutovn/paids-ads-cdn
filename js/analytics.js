@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
-  (function(){/* Copyright The Closure Library Authors.
+
+  (function(){
+/* Copyright The Closure Library Authors.
   SPDX-License-Identifier: Apache-2.0 */ var
   aa=this||self,l=function(a,b){a=a.split(".");var c=aa;a[0]in
   c||"undefined"==typeof c.execScript||c.execScript("var
@@ -158,6 +154,3 @@
   Z.v=function(a){try{if(a.u)a.u.call(O,N.j("t0"));else{var b=a.da==gb?N:N.j(a.da);if(a.A){if("t0"==a.da&&(b=N.create.apply(N,a.aa),null===b))return!0}else if(a.ba)N.remove(a.da);else if(b)if(a.i){if(a.ha&&(a.ha=y(a.da,a.aa[0],a.X,a.W)),!u(a.aa[0],b,a.W))return!0}else if(a.K){var c=a.methodName,d=a.aa,e=b.plugins_.get(a.K);e[c].apply(e,d)}else b[a.methodName].apply(b,a.aa)}}catch(g){}};var N=function(a){J(1);Z.D.apply(Z,[arguments])};N.h={};N.P=[];N.L=0;N.ya=0;N.answer=42;var we=[Na,W,V];N.create=function(a){var b=za(we,[].slice.call(arguments));b[V]||(b[V]="t0");var c=""+b[V];if(N.h[c])return N.h[c];if(da(b))return null;b=new pc(b);N.h[c]=b;N.P.push(b);c=qc().tracker_created;if(ea(c))try{c(b)}catch(d){}return b};N.remove=function(a){for(var b=0;b<N.P.length;b++)if(N.P[b].get(V)==a){N.P.splice(b,1);N.h[a]=null;break}};N.j=function(a){return N.h[a]};N.getAll=function(){return N.P.slice(0)};
   N.N=function(){"ga"!=gb&&J(49);var a=O[gb];if(!a||42!=a.answer){N.L=a&&a.l;N.ya=1*new Date;N.loaded=!0;var b=a&&a.q,c=ka(b);a=[];c?a=b.slice(0):J(50);N.q=c?b:[];N.q.splice(0);N.qd=0;b=O[gb]=N;X("create",b,b.create);X("remove",b,b.remove);X("getByName",b,b.j,5);X("getAll",b,b.getAll,6);b=pc.prototype;X("get",b,b.get,7);X("set",b,b.set,4);X("send",b,b.send);X("requireSync",b,b.ma);b=Ya.prototype;X("get",b,b.get);X("set",b,b.set);if("https:"!=M.location.protocol&&!Ba){a:{b=M.getElementsByTagName("script");
   for(c=0;c<b.length&&100>c;c++){var d=b[c].src;if(d&&0==d.indexOf(bd(!0)+"/analytics")){b=!0;break a}}b=!1}b&&(Ba=!0)}(O.gaplugins=O.gaplugins||{}).Linker=Dc;b=Dc.prototype;C("linker",Dc);X("decorate",b,b.ca,20);X("autoLink",b,b.S,25);X("passthrough",b,b.$,25);C("displayfeatures",fd);C("adfeatures",fd);Z.D.apply(N,a)}};var gf=N.N,hf=O[gb];hf&&hf.r?gf():z(gf);z(function(){Z.D(["provide","render",ua])});})(window);
-  </script></b>
-</body>
-</html>
